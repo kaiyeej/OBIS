@@ -15,10 +15,9 @@ class Sales extends Connection
             $this->name     => $this->clean($this->inputs[$this->name]),
             'sales_invoice' => $this->inputs['sales_invoice'],
             'customer_id'   => $this->inputs['customer_id'],
-            'sales_type'    => $this->inputs['sales_type'],
             'remarks'       => $this->inputs['remarks'],
-            'paid_status'   => ($this->inputs['sales_type'] == "C"? 1: 0),
             'sales_date'    => $this->inputs['sales_date'],
+            'user_id'       => '',//$this->inputs[''],
         );
         return $this->insertIfNotExist($this->table, $form, '', 'Y');
     }
@@ -26,11 +25,11 @@ class Sales extends Connection
     public function edit()
     {
         $form = array(
+            'sales_invoice' => $this->inputs['sales_invoice'],
             'customer_id'   => $this->inputs['customer_id'],
-            'sales_type'    => $this->inputs['sales_type'],
             'remarks'       => $this->inputs['remarks'],
-            'paid_status'   => ($this->inputs['sales_type'] == "C"? 1: 0),
             'sales_date'    => $this->inputs['sales_date'],
+            'user_id'       => '',//$this->inputs[''],
         );
         return $this->updateIfNotExist($this->table, $form);
     }
@@ -55,7 +54,8 @@ class Sales extends Connection
         $primary_id = $this->inputs['id'];
         $result = $this->select($this->table, "*", "$this->pk = '$primary_id'");
         $row = $result->fetch_assoc();
-        $row['customer_name'] = "Jerry";
+        $Customers = new Customers();
+        $row['customer'] = $Customers->name($row['customer_id']);
         return $row;
     }
 
