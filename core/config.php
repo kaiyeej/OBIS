@@ -18,4 +18,4 @@ spl_autoload_register(function ($class) {
 });
 
 
-$url_main = "jesm";
+$url_main = "obis";

@@ -1,9 +1,9 @@
 <?php
 
-define('BASE_URL', 'http://localhost/jesm/');
+define('BASE_URL', 'http://localhost/obis/');
 define("BASE_PATH", __DIR__ . "/../");
 
 define("HOST", "localhost");
 define("USER", "root");
 define("PASSWORD", "");
-define("DBNAME", "jesm_db");
+define("DBNAME", "obis_db");

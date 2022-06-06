@@ -1,6 +1,6 @@
 <?php
 $request = $_SERVER['REQUEST_URI'];
-$page = str_replace("/jesm/", "", $request);
+$page = str_replace("/obis/", "", $request);
 ?>
 <div class="sidebar-menu">
     <ul class="menu">
