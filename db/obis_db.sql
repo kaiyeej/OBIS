@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `tbl_customers` (
   `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_last_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -78,12 +78,11 @@ CREATE TABLE IF NOT EXISTS `tbl_products` (
   `product_price` decimal(11,2) NOT NULL,
   `product_img` text NOT NULL,
   `product_category_id` int(11) NOT NULL,
-  `is_package` int(1) NOT NULL,
   `remarks` varchar(255) NOT NULL,
   `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_last_modified` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `date_last_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -137,10 +136,11 @@ CREATE TABLE IF NOT EXISTS `tbl_sales` (
   `status` varchar(1) NOT NULL DEFAULT 'S' COMMENT 'F',
   `remarks` varchar(255) NOT NULL DEFAULT '',
   `user_id` int(11) NOT NULL,
+  `sales_date` date NOT NULL,
   `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_last_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sales_details` (
   `cost` decimal(12,2) NOT NULL,
   `price` decimal(12,2) NOT NULL,
   PRIMARY KEY (`sales_detail_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
