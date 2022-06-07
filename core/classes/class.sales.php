@@ -13,7 +13,6 @@ class Sales extends Connection
     {
         $form = array(
             $this->name     => $this->clean($this->inputs[$this->name]),
-            'sales_invoice' => $this->inputs['sales_invoice'],
             'customer_id'   => $this->inputs['customer_id'],
             'remarks'       => $this->inputs['remarks'],
             'sales_date'    => $this->inputs['sales_date'],
@@ -41,7 +40,7 @@ class Sales extends Connection
         $rows = array();
         $result = $this->select($this->table, '*', $param);
         while ($row = $result->fetch_assoc()) {
-            $row['customer'] = $row['customer_id'] > 0 ? $Customers->name($row['customer_id']) : 'walk-in';
+            $row['customer_name'] = $row['customer_id'] > 0 ? $Customers->name($row['customer_id']) : 'walk-in';
             $row['total'] = number_format($this->total($row['sales_id']), 2);
             
             $rows[] = $row;
@@ -54,8 +53,8 @@ class Sales extends Connection
         $primary_id = $this->inputs['id'];
         $result = $this->select($this->table, "*", "$this->pk = '$primary_id'");
         $row = $result->fetch_assoc();
-        $Customers = new Customers();
-        $row['customer'] = $Customers->name($row['customer_id']);
+        $Customers = new Customers;
+        $row['customer_name'] = $Customers->name($row['customer_id']);
         return $row;
     }
 
@@ -105,7 +104,7 @@ class Sales extends Connection
             $this->pk               => $this->inputs[$this->pk],
             $this->fk_det           => $fk_det,
             //'product_category_id'   => $this->inputs['product_category_id'],
-            'quantity'              => $this->inputs['quantity'],
+            'qty'                   => $this->inputs['qty'],
             'price'                 => $product_price,
             'cost'                  => 0 // change this value
         );

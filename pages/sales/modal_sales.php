@@ -66,23 +66,22 @@
                 <div class="row" style="font-size: small;">
                     <div class="col-sm-4">
                         <div><b>Customer:</b> <span id="customer_name_label" class="label-item"></span></div>
-                        <div><b>Invoice:</b> <span id="sales_invoice_label" class="label-item"></span></div>
                         <div><b>Date:</b> <span id="sales_date_label" class="label-item"></span></div>
                         <div><b>Reference:</b> <span id="reference_number_label" class="label-item"></span></div>
                     </div>
                     <div class="col-sm-8">
                         <ul class="nav justify-content-end">
                             <li class="nav-item">
-                                <a id="menu-edit-transaction" class="nav-link" href="#" style="font-size: small;"><i class='ti ti-pencil'></i> Edit Sales</a>
+                                <a id="menu-edit-transaction" class="nav-link" href="#" style="font-size: small;"><i class='bi bi-pencil'></i> Edit Sales</a>
                             </li>
                             <li class="nav-item">
-                                <a id="menu-delete-selected-items" class="nav-link" href="#" style="font-size: small;"><i class='ti ti-trash'></i> Delete Selected Items</a>
+                                <a id="menu-delete-selected-items" class="nav-link" href="#" style="font-size: small;"><i class='bi bi-trash'></i> Delete Selected Items</a>
                             </li>
                             <li class="nav-item">
-                                <a id="menu-finish-transaction" class="nav-link" href="#" style="font-size: small;"><i class='ti ti-check'></i> Finish Transaction</a>
+                                <a id="menu-finish-transaction" class="nav-link" href="#" style="font-size: small;"><i class='bi bi-check'></i> Finish Transaction</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-dismiss="modal" style="font-size: small;"><i class='ti ti-close'></i> Close</a>
+                                <a class="nav-link" href="#" data-bs-dismiss="modal" style="font-size: small;"><i class='bi bi-close'></i> Close</a>
                             </li>
                             <!--<li class="nav-item">
                                 <a class="nav-link disabled" href="#">Disabled</a>
@@ -101,7 +100,7 @@
                                 <div class="col">
                                     <label><strong>Category</strong></label>
                                     <div>
-                                        <select class="form-control form-control-sm select2" name="input[product_category_id]" id="product_category_id" onchange="fetchProductsByCategory()" required></select>
+                                        <select class="form-control form-control-sm" name="input[product_category_id]" id="product_category_id" onchange="fetchProductsByCategory()" required></select>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +109,7 @@
                                 <div class="col">
                                     <label><strong>Product</strong></label>
                                     <div>
-                                        <select class="form-control form-control-sm select2" name="input[product_id]" id="product_id" onchange="changeProduct()" required></select>
+                                        <select class="form-control form-control-sm" name="input[product_id]" id="product_id" onchange="changeProduct()" required></select>
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +118,7 @@
                                 <div class="col">
                                     <label><strong>Qty</strong></label>
                                     <div>
-                                        <input type="number" class="form-control form-control-sm" name="input[quantity]" step=".01" min=0 id="quantity" required>
+                                        <input type="number" class="form-control form-control-sm" name="input[qty]" step=".01" min=0 id="qty" required>
                                     </div>
                                 </div>
                                 <div class="col">

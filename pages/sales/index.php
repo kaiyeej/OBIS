@@ -83,11 +83,11 @@
                     "data": "reference_number"
                 },
                 {
-                    "data": "customer"
+                    "data": "customer_name"
                 },
                 {
                     "mRender": function(data, type, row) {
-                        return row.status == 'F' ? "<span class='badge badge-success'>Finish</span>" : "<span class='badge badge-danger'>Saved</span>";
+                        return row.status == 'F' ? "<span style='color:green;'>Finished</span>" : "<span class='badge badge-danger'>Saved</span>";
                     }
                 },
                 {
@@ -96,6 +96,81 @@
                 {
                     "data": "date_last_modified"
                 }
+            ]
+        });
+    }
+
+    function getEntries2() {
+        var params = "sales_id = '" + $("#hidden_id_2").val() + "'";
+        $("#dt_entries_2").DataTable().destroy();
+        $("#dt_entries_2").DataTable({
+            "processing": true,
+            "ajax": {
+                "url": "controllers/sql.php?c=" + route_settings.class_name + "&q=show_detail",
+                "dataSrc": "data",
+                "method": "POST",
+                "data": {
+                    input: {
+                        param: params
+                    }
+                }
+            },
+            "columnDefs": [{
+                "targets": [2, 3, 4],
+                "render": $.fn.dataTable.render.number(',', '.', 2, ''),
+                "className": 'dt-body-right'
+            }],
+            "footerCallback": function(row, data, start, end, display) {
+                var api = this.api();
+
+                // Remove the formatting to get integer data for summation
+                var intVal = function(i) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '') * 1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                // Total over all pages
+                total = api
+                    .column(4)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                // Total over this page
+                pageTotal = api
+                    .column(4, {
+                        page: 'current'
+                    })
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                // Update footer
+                $(api.column(4).footer()).html(
+                    "&#x20B1;" + pageTotal + ' ( &#x20B1; ' + total + ' )'
+                );
+            },
+            "columns": [{
+                    "mRender": function(data, type, row) {
+                        return "<input type='checkbox' value=" + row.sales_detail_id + " class='dt_id_2' style='position: initial; opacity:1;'>";
+                    }
+                },
+                {
+                    "data": "product"
+                },
+                {
+                    "data": "qty"
+                },
+                {
+                    "data": "price"
+                },
+                {
+                    "data": "amount"
+                },
             ]
         });
     }

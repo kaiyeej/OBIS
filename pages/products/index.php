@@ -74,7 +74,7 @@
                 },
                 {
                     "mRender": function(data, type, row) {
-                        return "<center><button class='btn btn-info btn-circle btn-sm' onclick='getEntryDetails(" + row.product_id + ")'><span class='ti ti-pencil'></span></button></center>";
+                        return "<center><button class='btn btn-primary btn-circle btn-sm' onclick='getEntryDetails(" + row.product_id + ")'><span class='bi bi-pencil-square'></span></button></center>";
                     }
                 },
                 {
@@ -103,7 +103,7 @@
 
     $(document).ready(function() {
         getEntries();
-        //getSelectOption('ProductCategories', 'product_category_id', 'product_category');
+        getSelectOption('ProductCategories', 'product_category_id', 'product_category');
     });
 
 </script>
