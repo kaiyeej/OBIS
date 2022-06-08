@@ -20,7 +20,7 @@
                             <div class="form-group">
                                 <label><strong>Customer</strong></label>
                                 <div>
-                                    <select class="form-control input-item choices" name="input[customer_id]" id="customer_id" required>
+                                    <select class="form-control input-item select2" name="input[customer_id]" id="customer_id" required>
                                     </select>
                                 </div>
                             </div>
