@@ -13,7 +13,7 @@
                                 <div class="card-body">
 
                                     <!-- Basic file uploader -->
-                                    <div class="filepond--root basic-filepond filepond--hopper" data-style-button-remove-item-position="left" data-style-button-process-item-position="right" data-style-load-indicator-position="right" data-style-progress-indicator-position="right" data-style-button-remove-item-align="false" style="height: 76px;">
+                                    <div class="filepond--root image-preview-filepond filepond--hopper" data-style-button-remove-item-position="left" data-style-button-process-item-position="right" data-style-load-indicator-position="right" data-style-progress-indicator-position="right" data-style-button-remove-item-align="false" style="height: 76px;">
                                         <input class="filepond--browser" type="file" id="filepond--browser-xf7wd1apw" name="filepond" aria-controls="filepond--assistant-xf7wd1apw" aria-labelledby="filepond--drop-label-xf7wd1apw" accept="">
                                         <div class="filepond--drop-label" style="transform: translate3d(0px, 0px, 0px); opacity: 1;"><label for="filepond--browser-xf7wd1apw" id="filepond--drop-label-xf7wd1apw" aria-hidden="true">Drag &amp; Drop your files or <span class="filepond--label-action" tabindex="0">Browse</span></label></div>
                                         <div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);">
