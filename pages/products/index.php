@@ -16,7 +16,7 @@
         </div>
     </div>
     <section class="section">
-    <div class="card">
+        <div class="card">
             <div class="card-header">
                 <div class="btn-group divider divider-right">
                     <div style="float: right">
@@ -57,8 +57,8 @@
     </section>
 </div>
 <?php require_once 'modal_products.php'; ?>
+<?php require_once 'modal_products_upload.php'; ?>
 <script type="text/javascript">
-
     function getEntries() {
         $("#dt_entries").DataTable().destroy();
         $("#dt_entries").DataTable({
@@ -79,7 +79,7 @@
                 },
                 {
                     "mRender": function(data, type, row) {
-                        return "<img src='images/products/" + row.product_img + "' style='width:50px;'>";
+                        return "<img src='assets/images/products/" + row.product_img + "' style='width:30px;' onclick=\"uploadProductImage('" + row.product_id + "')\">";
                     }
                 },
                 {
@@ -105,5 +105,4 @@
         getEntries();
         getSelectOption('ProductCategories', 'product_category_id', 'product_category');
     });
-
 </script>
