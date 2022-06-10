@@ -106,10 +106,10 @@
         
         <div class="card">
             <div class="card-header">
-                <h4>Product</h4>
+                <h4>Expenses</h4>
             </div>
             <div class="card-body">
-                <div id="chart-product"></div>
+                <div id="chart-expenses"></div>
             </div>
         </div>
     </div>
@@ -117,37 +117,39 @@
 </div>
 
 <script>
-graphByCustomer();
 salesGraph();
+graphByExpense();
 
-function graphByCustomer(){
-   
-    var options = {
-          series: [44, 55, 13, 33],
-          chart: {
-            type:"donut",width:"100%",height:"350px"
-        },
-        dataLabels: {
-          enabled: false
-        },
-        responsive: [{
-          breakpoint: 480,
-          options: {
+function graphByExpense(){
+    $.getJSON("controllers/sql.php?c=Homepage&q=expenses_graph", function (data) {
+        var options = {
+            series: data.data,
             chart: {
-              width: 200
+                type:"donut",width:"100%",height:"350px"
             },
-            legend: {
-              show: false
+            dataLabels: {
+            enabled: false
+            },
+            responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                width: 200
+                },
+                legend: {
+                show: false
+                }
             }
-          }
-        }],
-        legend: {
-            position:"bottom"
-        }
+            }],
+            legend: {
+                position:"bottom"
+            }
         };
 
-        var chart = new ApexCharts(document.querySelector("#chart-product"), options);
+        console.log(data.data);
+        var chart = new ApexCharts(document.querySelector("#chart-expenses"), options);
         chart.render();
+    });
 }
 
 function salesGraph(){

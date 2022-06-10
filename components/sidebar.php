@@ -17,11 +17,17 @@ $page = str_replace("/obis/", "", $request);
 
         <li class="sidebar-title">Master Data</li>
         
-        <li
-            class="sidebar-item <?= $page == 'customers' ? 'active' : '' ?>">
+        <li class="sidebar-item <?= $page == 'customers' ? 'active' : '' ?>">
             <a href="./customers" class='sidebar-link'>
                 <i class="bi bi-person-lines-fill"></i>
                 <span>Customers</span>
+            </a>
+        </li>
+       
+        <li class="sidebar-item <?= $page == 'expense-category' ? 'active' : '' ?>">
+            <a href="./expense-category" class='sidebar-link'>
+                <i class="bi bi-card-list"></i>
+                <span>Expense Category</span>
             </a>
         </li>
 
@@ -50,7 +56,14 @@ $page = str_replace("/obis/", "", $request);
         
         
         <li class="sidebar-title">Transactions</li>
-        
+
+        <li class="sidebar-item <?= $page == 'expense' ? 'active' : '' ?>">
+            <a href="./expense" class='sidebar-link'>
+                <i class="bi bi-clipboard2-pulse-fill"></i>
+                <span>Expenses</span>
+            </a>
+        </li>
+
         <li class="sidebar-item <?= $page == 'sales' ? 'active' : '' ?>">
             <a href="./sales" class='sidebar-link'>
                 <i class="bi bi-basket-fill"></i>
@@ -58,13 +71,12 @@ $page = str_replace("/obis/", "", $request);
             </a>
         </li>
 
-        <li class="sidebar-item  ">
-            <a href="form-layout.html" class='sidebar-link'>
+        <li class="sidebar-item <?= $page == 'purchase-order' ? 'active' : '' ?>">
+            <a href="./purchase-order" class='sidebar-link'>
                 <i class="bi bi-box2-fill"></i>
                 <span>Purchase Order</span>
             </a>
         </li>
-
 
 
         <li class="sidebar-title">Reports</li>

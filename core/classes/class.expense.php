@@ -45,7 +45,6 @@ class Expense extends Connection
         $primary_id = $this->inputs['id'];
         $result = $this->select($this->table, "*", "$this->pk = '$primary_id'");
         $row = $result->fetch_assoc();
-        $row['customer_name'] = "Jerry";
         return $row;
     }
 
@@ -93,7 +92,7 @@ class Expense extends Connection
             $this->pk       => $this->inputs[$this->pk],
             $this->fk_det   => $fk_det,
             'supplier_id'   => $this->inputs['supplier_id'],
-            'invoice_no'    => $this->inputs['invoice_no'],
+            'remarks'    => $this->inputs['remarks'],
             'amount'        => $this->inputs['amount'],
         );
 

@@ -2,14 +2,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Sales</h3>
-                <p class="text-subtitle text-muted">Manage sales here</p>
+                <h3>Expenses</h3>
+                <p class="text-subtitle text-muted">Manage expenses here</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="./homepage">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sales</li>
+                        <li class="breadcrumb-item active" aria-current="page">Expenses</li>
                     </ol>
                 </nav>
             </div>
@@ -43,7 +43,7 @@
                             <th></th>
                             <th>Date</th>
                             <th>Reference</th>
-                            <th>Customer</th>
+                            <th>Remarks</th>
                             <th>Status</th>
                             <th>Date Added</th>
                             <th>Date Modified</th>
@@ -56,7 +56,7 @@
         </div>
     </section>
 </div>
-<?php require_once 'modal_sales.php'; ?>
+<?php require_once 'modal_expense.php'; ?>
 <script type="text/javascript">
     function getEntries() {
         $("#dt_entries").DataTable().destroy();
@@ -68,22 +68,22 @@
             },
             "columns": [{
                     "mRender": function(data, type, row) {
-                        return row.status == 'F' ? '' : "<input type='checkbox' value=" + row.sales_id + " class='dt_id' style='position: initial; opacity:1;'>";
+                        return row.status == 'F' ? '' : "<input type='checkbox' value=" + row.expense_id + " class='dt_id' style='position: initial; opacity:1;'>";
                     }
                 },
                 {
                     "mRender": function(data, type, row) {
-                        return "<center><button class='btn btn-primary btn-circle btn-sm' onclick='getEntryDetails2(" + row.sales_id + ")'><span class='bi bi-pencil-square'></span></button></center>";
+                        return "<center><button class='btn btn-primary btn-circle btn-sm' onclick='getEntryDetails2(" + row.expense_id + ")'><span class='bi bi-pencil-square'></span></button></center>";
                     }
                 },
                 {
-                    "data": "sales_date"
+                    "data": "expense_date"
                 },
                 {
                     "data": "reference_number"
                 },
                 {
-                    "data": "customer_name"
+                    "data": "remarks"
                 },
                 {
                     "mRender": function(data, type, row) {
@@ -101,7 +101,7 @@
     }
 
     function getEntries2() {
-        var params = "sales_id = '" + $("#hidden_id_2").val() + "'";
+        var params = "expense_id = '" + $("#hidden_id_2").val() + "'";
         $("#dt_entries_2").DataTable().destroy();
         $("#dt_entries_2").DataTable({
             "processing": true,
@@ -156,17 +156,17 @@
             },
             "columns": [{
                     "mRender": function(data, type, row) {
-                        return "<input type='checkbox' value=" + row.sales_detail_id + " class='dt_id_2' style='position: initial; opacity:1;'>";
+                        return "<input type='checkbox' value=" + row.expense_detail_id + " class='dt_id_2' style='position: initial; opacity:1;'>";
                     }
                 },
                 {
-                    "data": "product"
+                    "data": "expense_category"
                 },
                 {
-                    "data": "qty"
+                    "data": "supplier"
                 },
                 {
-                    "data": "price"
+                    "data": "remarks"
                 },
                 {
                     "data": "amount"
@@ -174,6 +174,7 @@
             ]
         });
     }
+
 
     function fetchProductsByCategory() {
         var product_category_id = $("#product_category_id").val();
@@ -188,7 +189,7 @@
 
     $(document).ready(function() {
         getEntries();
-        getSelectOption('Customers', 'customer_id', 'customer_name');
-        getSelectOption('ProductCategories', 'product_category_id', 'product_category');
+        getSelectOption('ExpenseCategories', 'expense_category_id', 'expense_category');
+        getSelectOption('Suppliers', 'supplier_id', 'supplier_name');
     });
 </script>

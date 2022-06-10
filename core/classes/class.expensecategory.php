@@ -8,8 +8,7 @@ class ExpenseCategories extends Connection
     public function add()
     {
         $form = array(
-            $this->name             => $this->clean($this->inputs[$this->name]),
-            'expense_category_code' => $this->inputs['expense_category_code']
+            $this->name => $this->clean($this->inputs[$this->name])
         );
         return $this->insertIfNotExist($this->table, $form);
     }
@@ -17,8 +16,7 @@ class ExpenseCategories extends Connection
     public function edit()
     {
         $form = array(
-            $this->name             => $this->clean($this->inputs[$this->name]),
-            'expense_category_code' => $this->inputs['expense_category_code']
+            $this->name => $this->clean($this->inputs[$this->name])
         );
         return $this->updateIfNotExist($this->table, $form);
     }

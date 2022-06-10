@@ -2,14 +2,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Sales</h3>
-                <p class="text-subtitle text-muted">Manage sales here</p>
+                <h3>Purchase Order</h3>
+                <p class="text-subtitle text-muted">Manage purchase order here</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="./homepage">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sales</li>
+                        <li class="breadcrumb-item active" aria-current="page">Purchase Order</li>
                     </ol>
                 </nav>
             </div>
@@ -41,11 +41,11 @@
                         <tr>
                             <th><input type='checkbox' onchange="checkAll(this, 'dt_id')"></th>
                             <th></th>
-                            <th>Date</th>
-                            <th>Reference</th>
-                            <th>Customer</th>
+                            <th>Reference #</th>
+                            <th>Supplier</th>
+                            <th>Remarks</th>
                             <th>Status</th>
-                            <th>Date Added</th>
+                            <th>Date</th>
                             <th>Date Modified</th>
                         </tr>
                     </thead>
@@ -56,7 +56,7 @@
         </div>
     </section>
 </div>
-<?php require_once 'modal_sales.php'; ?>
+<?php require_once 'modal_po.php'; ?>
 <script type="text/javascript">
     function getEntries() {
         $("#dt_entries").DataTable().destroy();
@@ -68,30 +68,30 @@
             },
             "columns": [{
                     "mRender": function(data, type, row) {
-                        return row.status == 'F' ? '' : "<input type='checkbox' value=" + row.sales_id + " class='dt_id' style='position: initial; opacity:1;'>";
+                        return "<input type='checkbox' value=" + row.po_id + " class='dt_id' style='position: initial; opacity:1;'>";
                     }
                 },
                 {
                     "mRender": function(data, type, row) {
-                        return "<center><button class='btn btn-primary btn-circle btn-sm' onclick='getEntryDetails2(" + row.sales_id + ")'><span class='bi bi-pencil-square'></span></button></center>";
+                        return "<center><button class='btn btn-primary btn-circle btn-sm' onclick='getEntryDetails2(" + row.po_id + ")'><span class='bi bi-pencil-square'></span></button></center>";
                     }
-                },
-                {
-                    "data": "sales_date"
                 },
                 {
                     "data": "reference_number"
                 },
                 {
-                    "data": "customer_name"
+                    "data": "supplier_id"
+                },
+                {
+                    "data": "remarks"
                 },
                 {
                     "mRender": function(data, type, row) {
                         return row.status == 'F' ? "<strong style='color:#009688;'>Finished</strong>" : "<strong style='color:#795548;'>Saved</strong>";
-                    }
+                    } 
                 },
                 {
-                    "data": "date_added"
+                    "data": "po_date"
                 },
                 {
                     "data": "date_last_modified"
@@ -99,27 +99,23 @@
             ]
         });
     }
-
     function getEntries2() {
-        var params = "sales_id = '" + $("#hidden_id_2").val() + "'";
+        var hidden_id_2 = $("#hidden_id_2").val();
+        getSelectOption('Products', 'product_id', 'product_name');
+        var param = "po_id = '" + hidden_id_2 + "'";
         $("#dt_entries_2").DataTable().destroy();
         $("#dt_entries_2").DataTable({
             "processing": true,
             "ajax": {
                 "url": "controllers/sql.php?c=" + route_settings.class_name + "&q=show_detail",
                 "dataSrc": "data",
-                "method": "POST",
+                "type": "POST",
                 "data": {
                     input: {
-                        param: params
+                        param: param
                     }
                 }
             },
-            "columnDefs": [{
-                "targets": [2, 3, 4],
-                "render": $.fn.dataTable.render.number(',', '.', 2, ''),
-                "className": 'dt-body-right'
-            }],
             "footerCallback": function(row, data, start, end, display) {
                 var api = this.api();
 
@@ -156,7 +152,7 @@
             },
             "columns": [{
                     "mRender": function(data, type, row) {
-                        return "<input type='checkbox' value=" + row.sales_detail_id + " class='dt_id_2' style='position: initial; opacity:1;'>";
+                        return "<input type='checkbox' value=" + row.po_detail_id + " class='dt_id_2' style='position: initial; opacity:1;'>";
                     }
                 },
                 {
@@ -166,7 +162,7 @@
                     "data": "qty"
                 },
                 {
-                    "data": "price"
+                    "data": "supplier_price"
                 },
                 {
                     "data": "amount"
@@ -175,20 +171,8 @@
         });
     }
 
-    function fetchProductsByCategory() {
-        var product_category_id = $("#product_category_id").val();
-
-        getSelectOption('Products', 'product_id', 'product_name', "product_category_id = '" + product_category_id + "'", ['product_price']);
-    }
-
-    function changeProduct() {
-        var optionSelected = $("#product_id").find('option:selected').attr('product_price');
-        $("#price").val(optionSelected);
-    }
-
     $(document).ready(function() {
         getEntries();
-        getSelectOption('Customers', 'customer_id', 'customer_name');
-        getSelectOption('ProductCategories', 'product_category_id', 'product_category');
+        getSelectOption('Suppliers', 'supplier_id', 'supplier_name');
     });
 </script>

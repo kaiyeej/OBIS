@@ -6,52 +6,36 @@
                     <h4 class="modal-title" id="modalLabel"><span class='fa fa-pen'></span> Add Entry</h4>
                 </div>
                 <div class="modal-body" style="padding: 15px;">
-                    <input type="hidden" id="hidden_id" name="input[sales_id]">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label><strong>Reference</strong></label>
-                                <div>
-                                    <input type="text" class="form-control input-item" name="input[reference_number]" maxlength="30" id="reference_number" readonly required>
-                                </div>
+                    <input type="hidden" id="hidden_id" name="input[expense_id]">
+
+                    <div class="form-group row">
+                        <div class="col">
+                            <label><strong>Reference</strong></label>
+                            <div>
+                                <input type="text" class="form-control form-control-sm input-item" name="input[reference_number]" maxlength="30" id="reference_number" readonly required>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label><strong>Customer</strong></label>
-                                <div>
-                                    <select class="form-control input-item select2" name="input[customer_id]" id="customer_id" required>
-                                    </select>
-                                </div>
+                        <div class="col">
+                            <label><strong>Date</strong></label>
+                            <div>
+                                <input type="date" class="form-control form-control-sm input-item" name="input[expense_date]" id="expense_date" required>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label><strong>Date</strong></label>
-                                <div>
-                                    <input type="date" class="form-control input-item" name="input[sales_date]" id="sales_date" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label><strong>Remarks</strong></label>
-                                <div>
-                                    <textarea class="form-control input-item" name="input[remarks]" id="remarks" placeholder="Remarks" maxlength="255"></textarea>
-                                </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label><strong>Remarks</strong></label>
+                            <div>
+                                <textarea class="form-control form-control-sm input-item" name="input[remarks]" id="remarks" placeholder="Remarks" maxlength="255"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn" data-bs-dismiss="modal">
-                        <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Close</span>
-                    </button>
-                    <button type="submit" class="btn btn-primary ml-1">
-                        <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Submit</span>
-                    </button>
+                    <div class='btn-group'>
+                        <button type="submit" class="btn btn-primary btn-sm" id="btn_submit">Submit</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,9 +49,9 @@
             <div class="modal-header" style="display:block;">
                 <div class="row" style="font-size: small;">
                     <div class="col-sm-4">
-                        <div><b>Customer:</b> <span id="customer_name_label" class="label-item"></span></div>
-                        <div><b>Date:</b> <span id="sales_date_label" class="label-item"></span></div>
+                        <div><b>Date:</b> <span id="expense_date_label" class="label-item"></span></div>
                         <div><b>Reference:</b> <span id="reference_number_label" class="label-item"></span></div>
+                        <div><b>Remarks:</b> <span id="remarks_label" class="label-item"></span></div>
                     </div>
                     <div class="col-sm-8">
                         <ul class="nav justify-content-end">
@@ -94,37 +78,37 @@
                 <div class="row">
                     <div class="col-4" id="col-item">
                         <form method='POST' id='frm_submit_2'>
-                            <input type="hidden" id="hidden_id_2" name="input[sales_id]">
+                            <input type="hidden" id="hidden_id_2" name="input[expense_id]">
 
                             <div class="form-group row">
                                 <div class="col">
                                     <label><strong>Category</strong></label>
                                     <div>
-                                        <select class="form-control form-control-sm" name="input[product_category_id]" id="product_category_id" onchange="fetchProductsByCategory()" required></select>
+                                        <select class="form-control" name="input[expense_category_id]" id="expense_category_id" required></select>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col">
-                                    <label><strong>Product</strong></label>
+                                    <label><strong>Supplier</strong></label>
                                     <div>
-                                        <select class="form-control form-control-sm" name="input[product_id]" id="product_id" onchange="changeProduct()" required></select>
+                                        <select class="form-control" name="input[supplier_id]" id="supplier_id" required></select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label><strong>Amount</strong></label>
+                                    <div>
+                                        <input type="number" class="form-control" name="input[amount]" step=".01" min=0 id="amount" required>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col">
-                                    <label><strong>Qty</strong></label>
+                                    <label><strong>Remarks</strong></label>
                                     <div>
-                                        <input type="number" class="form-control form-control-sm" name="input[qty]" step=".01" min=0 id="qty" required>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label><strong>Price</strong></label>
-                                    <div>
-                                        <input type="number" class="form-control form-control-sm" name="input[price]" step=".01" min=0 id="price" readonly required>
+                                        <textarea class="form-control" name="input[remarks]" id="remarks"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -140,9 +124,9 @@
                                 <thead>
                                     <tr>
                                         <th><input type='checkbox' onchange="checkAll(this, 'dt_id_2')"></th>
-                                        <th>Product</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
+                                        <th>Expense</th>
+                                        <th>Supplier</th>
+                                        <th>Remarks</th>
                                         <th>Amount</th>
                                     </tr>
                                 </thead>
