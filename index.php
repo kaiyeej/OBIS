@@ -1,5 +1,8 @@
 <?php
 include 'core/config.php';
+if (session_status() != 2) {
+  header("location:./login/index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +17,6 @@ include 'core/config.php';
   <link rel="stylesheet" href="assets/css/main/app-dark.css">
   <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
   <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/pages/filepond.css">
 
   <link rel="stylesheet" href="vendors/sweetalert/sweetalert.css">
 
@@ -29,6 +31,7 @@ include 'core/config.php';
 </head>
 
 <body>
+
   <div id="app">
     <div id="sidebar" class="active">
       <div class="sidebar-wrapper active">
@@ -91,7 +94,8 @@ include 'core/config.php';
   <script src="assets/js/extensions/datatables.js"></script>
   <script src="vendors/sweetalert/sweetalert.js"></script>
   <script src="vendors/select2/select2.min.js"></script>
-  <script src="assets/js/extensions/filepond.js"></script>
+
+
 
   <script type='text/javascript'>
     <?php
@@ -101,6 +105,24 @@ include 'core/config.php';
   <script type="text/javascript">
     var modal_detail_status = 0;
     $(document).ready(function() {
+      // FilePond.registerPlugin(
+      //   FilePondPluginImagePreview,
+      //   FilePondPluginImageExifOrientation,
+      //   FilePondPluginFileValidateSize,
+      //   FilePondPluginImageEdit,
+      //   FilePondPluginFileValidateType
+      // );
+      // FilePond.create(
+      //   document.querySelector('#imagesFilepond'), {
+      //     name: 'filepond',
+      //     maxFiles: 5,
+      //     allowBrowse: true,
+      //     acceptedFileTypes: ['image/*'],
+      //     // server
+
+
+      //   }
+      // );
       $(".select2").select2();
 
       $(".select2").css({
@@ -168,9 +190,45 @@ include 'core/config.php';
     }
 
     function uploadProductImage(id) {
-      //alert(id);
+      // alert(id);
+      $("#product_id_hidden").val(id);
       $("#modalUpload").modal('show');
+
     }
+    $("#frm_upload_img_product").submit(function(e) {
+      e.preventDefault();
+
+      //var formData = new FormData(this);
+      $("#btn_submit").prop('disabled', true);
+      $("#btn_submit").html("<span class='fa fa-spinner fa-spin'></span> Submitting ...");
+      // console.log(formData);
+
+      var url = "controllers/sql.php?c=" + route_settings.class_name + "&q=uploadImage";
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: new FormData(this),
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(data) {
+
+          var json = JSON.parse(data);
+          if (json.data == 1) {
+            $("#modalUpload").modal('hide');
+            success_update();
+            setTimeout(function() {
+              location.reload();
+            }, 2000);
+
+          }
+
+
+
+        }
+      });
+
+    });
 
     function addModal() {
       modal_detail_status = 0;

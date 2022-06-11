@@ -75,4 +75,19 @@ class Products extends Connection
         $row = $fetch->fetch_assoc();
         return $row['product_price'];
     }
+    public function uploadImage()
+    {
+        $id = $this->inputs['product_id'];
+        if (isset($_FILES['file']['tmp_name'])) {
+            $image_name = $_FILES['file']['name'];
+            move_uploaded_file($_FILES['file']['tmp_name'], '../assets/images/products/' . $image_name);
+        } else {
+            $image_name = "default";
+        }
+
+        $form = array(
+            'product_img'           => $image_name,
+        );
+        return $this->update($this->table, $form, $id);
+    }
 }

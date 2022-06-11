@@ -5,7 +5,7 @@ require 'env.php';
 // connection
 
 // START THE SESSION
-session_start();
+// session_start();
 
 // THIS WILL LOAD ONLY THE NEEDED CLASS
 spl_autoload_register(function ($class) {

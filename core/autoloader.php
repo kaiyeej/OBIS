@@ -8,5 +8,6 @@ $classes = array(
     'Products'          => $pre_class . 'products.php',
     'ProductCategories' => $pre_class . 'productcategories.php',
     'Sales'             => $pre_class . 'sales.php',
+    'LoginUser'         => $pre_class . 'loginuser.php',
 
 );

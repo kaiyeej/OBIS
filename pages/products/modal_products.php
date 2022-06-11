@@ -6,12 +6,12 @@
                     <h4 class="modal-title" id="modalLabel"><span class='fa fa-pen'></span> Add Entry</h4>
                 </div>
                 <div class="modal-body">
-                <input type="hidden" id="hidden_id" name="input[product_id]">
+                    <input type="hidden" id="hidden_id" name="input[product_id]">
                     <div class="form-group row">
                         <div class="col">
                             <label><strong>Product Code</strong></label>
                             <div>
-                            <input type="text" class="form-control input-item" name="input[product_code]" id="product_code" placeholder="Product Code" maxlength="100" required>
+                                <input type="text" class="form-control input-item" name="input[product_code]" id="product_code" placeholder="Product Code" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -19,7 +19,7 @@
                         <div class="col">
                             <label><strong>Name</strong></label>
                             <div>
-                            <input type="text" class="form-control input-item" name="input[product_name]" id="product_name" placeholder="Product Name" maxlength="75" required>
+                                <input type="text" class="form-control input-item" name="input[product_name]" id="product_name" placeholder="Product Name" maxlength="75" required>
                             </div>
                         </div>
                     </div>
@@ -27,8 +27,8 @@
                         <div class="col">
                             <label><strong>Category</strong></label>
                             <div>
-                            <select class="form-control input-item" name="input[product_category_id]" id="product_category_id" required>
-                            </select>
+                                <select class="form-control input-item" name="input[product_category_id]" id="product_category_id" required>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                         <div class="col">
                             <label><strong>Price</strong></label>
                             <div>
-                            <input type="number" class="form-control input-item" name="input[product_price]" id="product_price" step=".01" min="0" required>
+                                <input type="number" class="form-control input-item" name="input[product_price]" id="product_price" step=".01" min="0" required>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <div class="col">
                             <label><strong>Remarks</strong></label>
                             <div>
-                            <textarea class="form-control input-item" name="input[remarks]" id="remarks" placeholder="Remarks" maxlength="255"></textarea>
+                                <textarea class="form-control input-item" name="input[remarks]" id="remarks" placeholder="Remarks" maxlength="255"></textarea>
                             </div>
                         </div>
                     </div>
