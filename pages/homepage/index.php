@@ -2,7 +2,9 @@
 <div class="page-heading">
 <h3>Dashboard</h3>
 </div>
-
+<?php
+$Homepage = new Homepage();
+?>
 <div class="page-content">   
 <section class="row">
     <div class="col-12 col-lg-9">
@@ -13,12 +15,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="stats-icon purple">
-                                    <i class="iconly-boldShow"></i>
+                                    <i style="margin: 3px 11px 15px 0px;" class="bi bi-cash-stack"></i>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">Sales</h6>
-                                <h6 class="font-extrabold mb-0">112.000</h6>
+                                <h6 class="font-extrabold mb-0"><?= number_format($Homepage->total_sales(),2); ?></h6>
                             </div>
                         </div>
                     </div>
@@ -30,12 +32,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="stats-icon blue">
-                                    <i class="iconly-boldProfile"></i>
+                                    <i style="margin: 3px 11px 15px 0px;" class="bi bi-person-lines-fill"></i>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">Customer</h6>
-                                <h6 class="font-extrabold mb-0">183.000</h6>
+                                <h6 class="font-extrabold mb-0"><?= $Homepage->total_customer(); ?></h6>
                             </div>
                         </div>
                     </div>
@@ -47,12 +49,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="stats-icon green">
-                                    <i class="iconly-boldAdd-User"></i>
+                                    <i style="margin: 3px 11px 15px 0px;" class="bi bi-boxes"></i>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">Product</h6>
-                                <h6 class="font-extrabold mb-0">80.000</h6>
+                                <h6 class="font-extrabold mb-0"><?= $Homepage->total_product(); ?></h6>
                             </div>
                         </div>
                     </div>
@@ -64,12 +66,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="stats-icon red">
-                                    <i class="iconly-boldBookmark"></i>
+                                    <i style="margin: 3px 11px 15px 0px;" class="bi bi-people-fill"></i>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">User</h6>
-                                <h6 class="font-extrabold mb-0">112</h6>
+                                <h6 class="font-extrabold mb-0"><?= $Homepage->total_user(); ?></h6>
                             </div>
                         </div>
                     </div>
@@ -106,7 +108,7 @@
         
         <div class="card">
             <div class="card-header">
-                <h4>Expenses</h4>
+                <h4>Monthly Expenses</h4>
             </div>
             <div class="card-body">
                 <div id="chart-expenses"></div>
@@ -120,58 +122,67 @@
 salesGraph();
 graphByExpense();
 
+
 function graphByExpense(){
     $.getJSON("controllers/sql.php?c=Homepage&q=expenses_graph", function (data) {
-        var options = {
-            series: data.data,
+        
+        let inputArray = data.data;
+        let total = inputArray.map((item) => item.total);
+        let labels = inputArray.map(a => a.label);
+
+       var options = {
+            series: total,
+            labels: labels,
             chart: {
-                type:"donut",width:"100%",height:"350px"
+                type:"donut",
+                width:"100%",
+                height:"350px",
+                
             },
             dataLabels: {
-            enabled: false
+                enabled: true
             },
             responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                width: 200
-                },
-                legend: {
-                show: false
+                breakpoint: 480,
+                options: {
+                    chart: {
+                    width: 200
+                    },
+                    legend: {
+                    show: false
+                    }
                 }
-            }
             }],
             legend: {
                 position:"bottom"
             }
         };
-
-        console.log(data.data);
         var chart = new ApexCharts(document.querySelector("#chart-expenses"), options);
         chart.render();
     });
 }
 
 function salesGraph(){
-   
-    var options = {
-          series: [{name:"sales",
-            data:[9,20,30,20,10,20,30,20,10,20,30,20]
-        }],
-          chart: {
-          type: 'bar',
-          height: 350
-        },
-        dataLabels: {
-          enabled: false
-        },
-        xaxis: {
-          categories: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"
-          ],
-        }
+    $.getJSON("controllers/sql.php?c=Homepage&q=monthly_graph", function (data) { 
+        var options = {
+            series: [{name:"sales",
+                data: data.data
+            }],
+            chart: {
+            type: 'bar',
+            height: 350
+            },
+            dataLabels: {
+            enabled: false
+            },
+            xaxis: {
+            categories: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"
+            ],
+            }
         };
 
         var chart = new ApexCharts(document.querySelector("#chart-total-sales"), options);
         chart.render();
+    });
 }
 </script>

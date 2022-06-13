@@ -41,7 +41,7 @@ $page = str_replace("/obis/", "", $request);
         
         <li class="sidebar-item <?= $page == 'products' || $page == 'product-categories' ? 'active' : '' ?>  has-sub">
             <a href="#" class='sidebar-link'>
-                <i class="bi bi-bag-fill"></i>
+                <i class="bi bi-boxes"></i>
                 <span>Product Entry</span>
             </a>
             <ul class="submenu ">

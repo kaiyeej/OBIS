@@ -117,4 +117,15 @@ class Expense extends Connection
         $ids = implode(",", $this->inputs['ids']);
         return $this->delete($this->table_detail, "$this->pk2 IN($ids)");
     }
+
+    public function monthly_total($id){
+        $date = $this->getCurrentDate();
+        $result = $this->select('tbl_expense_details as d, tbl_expense as h', "sum(amount) as total", "h.expense_id=d.expense_id AND h.status='F' AND MONTH(h.expense_date) = MONTH('$date') AND d.expense_category_id='$id'");
+        $total = 0;
+        while ($row = $result->fetch_assoc()) {
+            $total += $row['total'];
+        }
+
+        return $total;
+    }
 }
