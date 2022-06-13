@@ -89,7 +89,7 @@
                     "data": "product_price"
                 },
                 {
-                    "data": "product_category_name"
+                    "data": "product_category"
                 },
                 {
                     "data": "date_added"

@@ -12,13 +12,13 @@
                         <div class="col">
                             <label><strong>Reference</strong></label>
                             <div>
-                                <input type="text" class="form-control form-control-sm input-item" name="input[reference_number]" maxlength="30" id="reference_number" readonly required>
+                                <input type="text" class="form-control input-item" name="input[reference_number]" maxlength="30" id="reference_number" readonly required>
                             </div>
                         </div>
                         <div class="col">
                             <label><strong>Date</strong></label>
                             <div>
-                                <input type="date" class="form-control form-control-sm input-item" name="input[expense_date]" id="expense_date" required>
+                                <input type="date" class="form-control input-item" name="input[expense_date]" id="expense_date" required>
                             </div>
                         </div>
                     </div>
@@ -26,15 +26,21 @@
                         <div class="col">
                             <label><strong>Remarks</strong></label>
                             <div>
-                                <textarea class="form-control form-control-sm input-item" name="input[remarks]" id="remarks" placeholder="Remarks" maxlength="255"></textarea>
+                                <textarea class="form-control input-item" name="input[remarks]" id="remarks" placeholder="Remarks" maxlength="255"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class='btn-group'>
-                        <button type="submit" class="btn btn-primary btn-sm" id="btn_submit">Submit</button>
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ml-1">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Submit</span>
+                        </button>
                     </div>
                 </div>
             </div>
