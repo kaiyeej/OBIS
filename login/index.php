@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+// print_r($_SESSION);
+// echo count($_SESSION);
+if (count($_SESSION) > 0) {
+    header("location:../index.php");
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,13 +36,13 @@
 
                     <form method="POST" id="frm_login">
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" id="username" placeholder="Username">
+                            <input type="text" class="form-control form-control-xl" name="input[username]" id="username" placeholder="Username">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" id="password" placeholder="Password">
+                            <input type="password" class="form-control form-control-xl" name="input[password]" id="password" placeholder="Password">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
@@ -43,7 +53,7 @@
                                 Keep me logged in
                             </label>
                         </div> -->
-                        <button button="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-2">Log in</button>
+                        <button button="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-2" id="btn_submit">Log in</button>
                     </form>
                     <!-- <div class="text-center mt-5 text-lg fs-4">
                         <p class="text-gray-600">Don't have an account? <a href="auth-register.html" class="font-bold">Sign
@@ -67,12 +77,21 @@
         e.preventDefault();
         var url = "../controllers/sql.php?c=LoginUser&q=login";
         var data = $("#frm_login").serialize();
+        $("#btn_submit").prop('disabled', true);
+        $("#btn_submit").html("<span class='fa fa-spinner fa-spin'></span> Verifying ...");
         $.ajax({
             type: "POST",
             url: url,
             data: data,
-            success: function(response) {
-                console.log(response);
+            success: function(data) {
+
+                // var json = JSON.parse(data);
+                console.log(data);
+
+                setTimeout(function() {
+                    window.location = "../index.php";
+                }, 2000);
+
             }
         });
 

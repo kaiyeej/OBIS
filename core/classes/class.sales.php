@@ -16,7 +16,7 @@ class Sales extends Connection
             'customer_id'   => $this->inputs['customer_id'],
             'remarks'       => $this->inputs['remarks'],
             'sales_date'    => $this->inputs['sales_date'],
-            'user_id'       => '',//$this->inputs[''],
+            'user_id'       => '', //$this->inputs[''],
         );
         return $this->insertIfNotExist($this->table, $form, '', 'Y');
     }
@@ -28,7 +28,7 @@ class Sales extends Connection
             'customer_id'   => $this->inputs['customer_id'],
             'remarks'       => $this->inputs['remarks'],
             'sales_date'    => $this->inputs['sales_date'],
-            'user_id'       => '',//$this->inputs[''],
+            'user_id'       => '', //$this->inputs[''],
         );
         return $this->updateIfNotExist($this->table, $form);
     }
@@ -42,7 +42,7 @@ class Sales extends Connection
         while ($row = $result->fetch_assoc()) {
             $row['customer_name'] = $row['customer_id'] > 0 ? $Customers->name($row['customer_id']) : 'walk-in';
             $row['total'] = number_format($this->total($row['sales_id']), 2);
-            
+
             $rows[] = $row;
         }
         return $rows;
@@ -123,7 +123,7 @@ class Sales extends Connection
             $row['product'] = $Products->name($row['product_id']);
             $row['amount'] = number_format($row['qty'] * $row['price'], 2);
             $row['pos_qty'] = number_format($row['qty']);
-            $row['pos_price'] = "@".$row['price'];
+            $row['pos_price'] = "@" . $row['price'];
             $row['count'] = $count++;
             $rows[] = $row;
         }
@@ -143,7 +143,8 @@ class Sales extends Connection
         return $row[0];
     }
 
-    public function cancel_sales(){
+    public function cancel_sales()
+    {
         $reference_number = $this->inputs['reference_number'];
         $param = "reference_number = '$reference_number'";
         $primary_id = $this->getID($param);
@@ -154,7 +155,8 @@ class Sales extends Connection
         return $this->update($this->table, $form, "$this->pk = '$primary_id'");
     }
 
-    public function save_sales(){
+    public function save_sales()
+    {
         $reference_number = $this->inputs['reference_number'];
         $param = "reference_number = '$reference_number'";
         $primary_id = $this->getID($param);
@@ -170,7 +172,8 @@ class Sales extends Connection
         $query = "CREATE TRIGGER `delete_sales_details` AFTER DELETE ON `tbl_sales` FOR EACH ROW DELETE FROM tbl_sales_details WHERE sales_id = OLD.sales_id";
     }
 
-    public function cancel_sales_trigger(){
+    public function cancel_sales_trigger()
+    {
         $query = "DELIMITER $$
         CREATE TRIGGER `finish_sales` AFTER UPDATE ON `tbl_sales` FOR EACH ROW 
         BEGIN
@@ -191,11 +194,34 @@ class Sales extends Connection
         $query = "CREATE TRIGGER `add_transaction_in` AFTER INSERT ON `tbl_sales_details` FOR EACH ROW INSERT INTO tbl_product_transactions (product_id,quantity,cost,price,header_id,detail_id,module,type) VALUES (NEW.product_id,NEW.quantity,NEW.cost,NEW.price,NEW.sales_id,NEW.sales_detail_id,'SLS','OUT')";
     }
 
-    public function getID($param){
+    public function getID($param)
+    {
         $fetch = $this->select($this->table, $this->pk, $param);
         $row = $fetch->fetch_array();
         return $row[0];
     }
 
-
+    public function getSalesHeader()
+    {
+        $Customers = new Customers;
+        $id = $_POST['id'];
+        $result = $this->select($this->table, "*", "sales_id='$id'");
+        $row = $result->fetch_assoc();
+        $row['customer_name'] = $row['customer_id'] > 0 ? $Customers->name($row['customer_id']) : 'walk-in';
+        $row['sales_date_mod'] = date("F j, Y", strtotime($row['sales_date']));
+        $rows[] = $row;
+        return $rows;
+    }
+    public function getSalesDetails()
+    {
+        $id = $_POST['id'];
+        $Products = new Products;
+        $rows = array();
+        $result = $this->select($this->table_detail, "*", "sales_id='$id'");
+        while ($row = $result->fetch_assoc()) {
+            $row['product_name'] = $Products->name($row['product_id']);
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }

@@ -13,18 +13,13 @@ if (isset($_POST['input'])) {
     $inputs = "";
 }
 
-// if (isset($_FILES['file'])) {
-//     $files = $_FILES['file'];
-// } else {
-//     $files = "";
-// }
+
 
 $query = $_GET['q'];
 $class = $_GET['c'];
 
 $ClassName = new $class;
 $ClassName->inputs = $inputs;
-// $ClassName->files = $files;
 
 $response['data'] = $ClassName->$query();
 

@@ -1,3 +1,6 @@
+<?php
+$Sales = new Sales;
+?>
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
@@ -16,7 +19,7 @@
         </div>
     </div>
     <section class="section">
-    <div class="card">
+        <div class="card">
             <div class="card-header">
                 <div class="btn-group divider divider-right">
                     <div style="float: right">
@@ -57,7 +60,64 @@
     </section>
 </div>
 <?php require_once 'modal_sales.php'; ?>
+<?php require_once 'modal_print.php'; ?>
 <script type="text/javascript">
+    function printRecord(id) {
+        $("#tb_id").html("");
+        $("#modalPrint").modal('show');
+        $.ajax({
+            type: 'POST',
+            url: "controllers/sql.php?c=" + route_settings.class_name + "&q=getSalesHeader",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                var json = JSON.parse(data);
+                // console.log(json.data[0].customer_name);
+                $("#customer_name_span").html(json.data[0].customer_name);
+                $("#reference_number_span").html(json.data[0].reference_number);
+                $("#sales_date_span").html(json.data[0].sales_date_mod);
+                getSalesDetails(json.data[0].sales_id);
+            }
+        });
+    }
+
+    function getSalesDetails(id) {
+
+        $.ajax({
+            type: 'POST',
+            url: "controllers/sql.php?c=" + route_settings.class_name + "&q=getSalesDetails",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                var json = JSON.parse(data);
+                var arr_count = json.data.length;
+                var i = 0;
+                while (i < arr_count) {
+                    console.log(json.data[i]);
+                    $("#tb_id").append('<tr>' +
+                        '<td>' + json.data[i].product_name + '</td>' +
+                        '<td>' + json.data[i].qty + '</td>' +
+                        '<td>' + json.data[i].price + '</td>' +
+                        '<td>' + json.data[i].qty * json.data[i].price + '</td>' +
+                        '</tr>');
+                    i++;
+                }
+
+            }
+        });
+    }
+
+    function printCanvas() {
+        var printContents = document.getElementById('print_canvas').innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+
+    }
+
     function getEntries() {
         $("#dt_entries").DataTable().destroy();
         $("#dt_entries").DataTable({
@@ -73,7 +133,19 @@
                 },
                 {
                     "mRender": function(data, type, row) {
-                        return "<center><button class='btn btn-primary btn-circle btn-sm' onclick='getEntryDetails2(" + row.sales_id + ")'><span class='bi bi-pencil-square'></span></button></center>";
+                        if (row.status == 'F') {
+                            var display = "";
+                        } else {
+                            var display = "display: none;";
+                        }
+                        // return "<center><button class='btn btn-primary btn-circle btn-sm' onclick='getEntryDetails2(" + row.sales_id + ")'><span class='bi bi-pencil-square'></span></button></center>";
+                        return '<div class="dropdown">' +
+                            '<button class="btn btn-primary dropdown-toggle me-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i>' +
+                            '</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                            '<a class="dropdown-item" href="#" onclick="getEntryDetails2(' + row.sales_id + ')"><span class="bi bi-pencil-square"></span> Edit Record</a>' +
+                            '<a class="dropdown-item" href="#" style="' + display + '" onclick="printRecord(' + row.sales_id + ')"><span class="fa fa-print"></span> Print Record</a>' +
+                            // '<a class="dropdown-item" href="#">Option 3</a></div>' +
+                            '</div>';
                     }
                 },
                 {
