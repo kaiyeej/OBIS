@@ -1,6 +1,8 @@
 <?php
 include 'core/config.php';
-if (count($_SESSION) == 0) {
+// print_r($_SESSION);
+
+if (!isset($_SESSION["status"])) {
   header("location:./login/index.php");
 }
 ?>
@@ -142,6 +144,16 @@ if (count($_SESSION) == 0) {
 
     });
 
+    function printCanvas() {
+      var printContents = document.getElementById('print_canvas').innerHTML;
+      var originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
+      window.close();
+      location.reload();
+
+    }
 
 
 

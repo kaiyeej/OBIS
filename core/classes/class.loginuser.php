@@ -14,19 +14,20 @@ class LoginUser extends Connection
 
         $result = $this->select($this->table, "*", "username = '$username' AND password = md5('$password')");
         $row = $result->fetch_assoc();
-        session_start();
-        if ($result) {
 
+        if ($row) {
+            $_SESSION['status'] = "in";
             $_SESSION["user_fullname"] = $row['user_fullname'];
             $_SESSION["username"] = $row['username'];
             $_SESSION["user_category"] = $row['user_category'];
-            // $_SESSION["status"] = "in";
+
             $res = 1;
         } else {
             $res = 0;
         }
 
         // return $row[$this->name];
+
         return $res;
     }
     public function logout()

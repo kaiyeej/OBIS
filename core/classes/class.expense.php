@@ -118,7 +118,8 @@ class Expense extends Connection
         return $this->delete($this->table_detail, "$this->pk2 IN($ids)");
     }
 
-    public function monthly_total($id){
+    public function monthly_total($id)
+    {
         $date = $this->getCurrentDate();
         $result = $this->select('tbl_expense_details as d, tbl_expense as h', "sum(amount) as total", "h.expense_id=d.expense_id AND h.status='F' AND MONTH(h.expense_date) = MONTH('$date') AND d.expense_category_id='$id'");
         $total = 0;
@@ -127,5 +128,28 @@ class Expense extends Connection
         }
 
         return $total;
+    }
+    public function getExpenseHeader()
+    {
+        $id = $_POST['id'];
+        $result = $this->select($this->table, "*", "$this->pk='$id'");
+        $row = $result->fetch_assoc();
+        $row['expense_date_mod'] = date("F j, Y", strtotime($row['expense_date']));
+        $rows[] = $row;
+        return $rows;
+    }
+    public function getExpenseDetails()
+    {
+        $id = $_POST['id'];
+        $Supplier = new Suppliers;
+        $ExpenseCategories = new ExpenseCategories;
+        $rows = array();
+        $result = $this->select($this->table_detail, "*", "$this->pk='$id'");
+        while ($row = $result->fetch_assoc()) {
+            $row['supplier_name'] = $Supplier->name($row['supplier_id']);
+            $row['expense_category'] = $ExpenseCategories->name($row['expense_category_id']);
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }

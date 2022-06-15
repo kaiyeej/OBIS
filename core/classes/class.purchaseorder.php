@@ -1,5 +1,6 @@
 <?php
-class PurchaseOrder extends Connection{
+class PurchaseOrder extends Connection
+{
     private $table = 'tbl_purchase_order';
     public $pk = 'po_id';
     public $name = 'reference_number';
@@ -61,7 +62,7 @@ class PurchaseOrder extends Connection{
         $rows = array();
         $result = $this->select($this->table_detail, '*', $param);
         while ($row = $result->fetch_assoc()) {
-            $row['amount'] = $row['supplier_price']*$row['qty'];
+            $row['amount'] = $row['supplier_price'] * $row['qty'];
             $row['product'] = $Products->name($row['product_id']);
             $rows[] = $row;
         }
@@ -103,7 +104,7 @@ class PurchaseOrder extends Connection{
         return $this->delete($this->table, "$this->pk IN($ids)");
     }
 
-    
+
     public function remove_detail()
     {
         $ids = implode(",", $this->inputs['ids']);
@@ -112,7 +113,7 @@ class PurchaseOrder extends Connection{
 
     public function po_id($primary_id)
     {
-        
+
         $result = $this->select($this->table, $this->pk, "$this->name = '$primary_id'");
         $row = $result->fetch_assoc();
         return $row[$this->name];
@@ -126,7 +127,8 @@ class PurchaseOrder extends Connection{
         return $row[$this->pk] * 1;
     }
 
-    public function get_row($primary_id, $field){
+    public function get_row($primary_id, $field)
+    {
         $result = $this->select($this->table, $field, "$this->pk = '$primary_id'");
         $row = $result->fetch_assoc();
         return $row[$field];
@@ -148,7 +150,6 @@ class PurchaseOrder extends Connection{
 
     public function po_balance($primary_id)
     {
-       
     }
 
     private function delete_sales_details()
@@ -165,7 +166,27 @@ class PurchaseOrder extends Connection{
     {
         $query = "CREATE TRIGGER `add_transaction_in` AFTER INSERT ON `tbl_sales_details` FOR EACH ROW INSERT INTO tbl_product_transactions (product_id,quantity,cost,price,header_id,detail_id,module,type) VALUES (NEW.product_id,NEW.quantity,NEW.cost,NEW.price,NEW.sales_id,NEW.sales_detail_id,'SLS','OUT')";
     }
-
+    public function getPuchaseOrderHeader()
+    {
+        $Supplier = new Suppliers;
+        $id = $_POST['id'];
+        $result = $this->select($this->table, "*", "$this->pk='$id'");
+        $row = $result->fetch_assoc();
+        $row['po_date_mod'] = date("F j, Y", strtotime($row['po_date']));
+        $row['supplier_name'] = $Supplier->name($row['supplier_id']);
+        $rows[] = $row;
+        return $rows;
+    }
+    public function getPuchaseOrderDetails()
+    {
+        $id = $_POST['id'];
+        $Products = new Products;
+        $rows = array();
+        $result = $this->select($this->table_detail, "*", "$this->pk='$id'");
+        while ($row = $result->fetch_assoc()) {
+            $row['product_name'] = $Products->name($row['product_id']);
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }
-
-?>

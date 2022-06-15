@@ -109,14 +109,6 @@ $Sales = new Sales;
         });
     }
 
-    function printCanvas() {
-        var printContents = document.getElementById('print_canvas').innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-
-    }
 
     function getEntries() {
         $("#dt_entries").DataTable().destroy();

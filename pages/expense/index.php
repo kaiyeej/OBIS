@@ -16,7 +16,7 @@
         </div>
     </div>
     <section class="section">
-    <div class="card">
+        <div class="card">
             <div class="card-header">
                 <div class="btn-group divider divider-right">
                     <div style="float: right">
@@ -57,7 +57,56 @@
     </section>
 </div>
 <?php require_once 'modal_expense.php'; ?>
+<?php require_once 'modal_print.php'; ?>
 <script type="text/javascript">
+    function printRecord(id) {
+        $("#tb_id").html("");
+        $("#modalPrint").modal('show');
+        $.ajax({
+            type: 'POST',
+            url: "controllers/sql.php?c=" + route_settings.class_name + "&q=getExpenseHeader",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                var json = JSON.parse(data);
+                // console.log(data);
+                $("#remarks_span").html(json.data[0].remarks);
+                $("#reference_number_span").html(json.data[0].reference_number);
+                $("#expense_date_span").html(json.data[0].expense_date_mod);
+                getExpenseDetails(json.data[0].expense_id);
+            }
+        });
+    }
+
+    function getExpenseDetails(id) {
+
+        $.ajax({
+            type: 'POST',
+            url: "controllers/sql.php?c=" + route_settings.class_name + "&q=getExpenseDetails",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                console.log(data);
+                var json = JSON.parse(data);
+                var arr_count = json.data.length;
+                var i = 0;
+                while (i < arr_count) {
+                    console.log(json.data[i]);
+                    $("#tb_id").append('<tr>' +
+                        '<td>' + json.data[i].expense_category + '</td>' +
+                        '<td>' + json.data[i].supplier_name + '</td>' +
+                        '<td>' + json.data[i].remarks + '</td>' +
+                        '<td>' + json.data[i].amount + '</td>' +
+                        '</tr>');
+                    i++;
+                }
+
+            }
+        });
+    }
+
     function getEntries() {
         $("#dt_entries").DataTable().destroy();
         $("#dt_entries").DataTable({
@@ -73,7 +122,19 @@
                 },
                 {
                     "mRender": function(data, type, row) {
-                        return "<center><button class='btn btn-primary btn-circle btn-sm' onclick='getEntryDetails2(" + row.expense_id + ")'><span class='bi bi-pencil-square'></span></button></center>";
+                        if (row.status == 'F') {
+                            var display = "";
+                        } else {
+                            var display = "display: none;";
+                        }
+                        // return "<center><button class='btn btn-primary btn-circle btn-sm' onclick='getEntryDetails2(" + row.expense_id + ")'><span class='bi bi-pencil-square'></span></button></center>";
+                        return '<div class="dropdown">' +
+                            '<button class="btn btn-primary dropdown-toggle me-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i>' +
+                            '</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                            '<a class="dropdown-item" href="#" onclick="getEntryDetails2(' + row.expense_id + ')"><span class="bi bi-pencil-square"></span> Edit Record</a>' +
+                            '<a class="dropdown-item" href="#" style="' + display + '" onclick="printRecord(' + row.expense_id + ')"><span class="fa fa-print"></span> Print Record</a>' +
+                            // '<a class="dropdown-item" href="#">Option 3</a></div>' +
+                            '</div>';
                     }
                 },
                 {

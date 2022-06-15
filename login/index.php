@@ -2,10 +2,13 @@
 
 session_start();
 // print_r($_SESSION);
-// echo count($_SESSION);
-if (count($_SESSION) > 0) {
+if (isset($_SESSION["status"])) {
     header("location:../index.php");
+    // echo "set";
 }
+// if (count($_SESSION) > 0) {
+//     header("location:../index.php");
+// }
 
 ?>
 <!DOCTYPE html>
@@ -33,7 +36,7 @@ if (count($_SESSION) > 0) {
                     </div>
                     <h5 class="auth-title" style="font-size: 25px;">Log in</h5>
                     <p class="auth-subtitle mb-5" style="font-size: 16px; line-height: 1rem;">Log in with your data that you entered during registration.</p>
-
+                    <div id="alert_div"></div>
                     <form method="POST" id="frm_login">
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="text" class="form-control form-control-xl" name="input[username]" id="username" placeholder="Username">
@@ -84,13 +87,27 @@ if (count($_SESSION) > 0) {
             url: url,
             data: data,
             success: function(data) {
+                var json = JSON.parse(data);
+                if (json.data == 0) {
+                    $("#alert_div").html('<div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i> Credentials not found.</div>');
+                    setTimeout(function() {
+                        $("#alert_div").html("");
+                    }, 1500);
+                    $("#btn_submit").prop('disabled', false);
+                    $("#btn_submit").html("Log in");
+                    $("#username").val("");
+                    $("#password").val("");
+                } else {
+                    $("#alert_div").html('<div class="alert alert-light-success color-success"><i class="bi bi-exclamation-circle"></i> Credentials not found.</div>');
+                    setTimeout(function() {
+                        window.location = "../homepage";
+                    }, 2000);
+                }
 
                 // var json = JSON.parse(data);
-                console.log(data);
+                console.log(json.data);
 
-                setTimeout(function() {
-                    window.location = "../index.php";
-                }, 2000);
+
 
             }
         });

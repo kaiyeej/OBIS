@@ -82,12 +82,12 @@ class Products extends Connection
             $image_name = $_FILES['file']['name'];
             move_uploaded_file($_FILES['file']['tmp_name'], '../assets/images/products/' . $image_name);
         } else {
-            $image_name = "default";
+            $image_name = "default.png";
         }
 
         $form = array(
-            'product_img'           => $image_name,
+            'product_img' => $image_name,
         );
-        return $this->update($this->table, $form, $id);
+        return $this->update($this->table, $form, "product_id='$id'");
     }
 }
