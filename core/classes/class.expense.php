@@ -45,7 +45,6 @@ class Expense extends Connection
         $primary_id = $this->inputs['id'];
         $result = $this->select($this->table, "*", "$this->pk = '$primary_id'");
         $row = $result->fetch_assoc();
-        $row['customer_name'] = "Jerry";
         return $row;
     }
 
@@ -93,7 +92,7 @@ class Expense extends Connection
             $this->pk       => $this->inputs[$this->pk],
             $this->fk_det   => $fk_det,
             'supplier_id'   => $this->inputs['supplier_id'],
-            'invoice_no'    => $this->inputs['invoice_no'],
+            'remarks'    => $this->inputs['remarks'],
             'amount'        => $this->inputs['amount'],
         );
 
@@ -117,5 +116,16 @@ class Expense extends Connection
     {
         $ids = implode(",", $this->inputs['ids']);
         return $this->delete($this->table_detail, "$this->pk2 IN($ids)");
+    }
+
+    public function monthly_total($id){
+        $date = $this->getCurrentDate();
+        $result = $this->select('tbl_expense_details as d, tbl_expense as h', "sum(amount) as total", "h.expense_id=d.expense_id AND h.status='F' AND MONTH(h.expense_date) = MONTH('$date') AND d.expense_category_id='$id'");
+        $total = 0;
+        while ($row = $result->fetch_assoc()) {
+            $total += $row['total'];
+        }
+
+        return $total;
     }
 }

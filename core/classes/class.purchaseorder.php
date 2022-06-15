@@ -13,10 +13,8 @@ class PurchaseOrder extends Connection{
         $form = array(
             $this->name => $this->clean($this->inputs[$this->name]),
             'supplier_id' => $this->inputs['supplier_id'],
-            'po_type' => $this->inputs['po_type'],
-            'paid_status' => ($this->inputs['po_type'] == "C" ? 1 : 0),
             'po_date' => $this->inputs['po_date'],
-            'po_remarks' => $this->inputs['po_remarks'],
+            'remarks' => $this->inputs['remarks'],
         );
         return $this->insertIfNotExist($this->table, $form, '', 'Y');
     }
@@ -40,9 +38,8 @@ class PurchaseOrder extends Connection{
     {
         $form = array(
             'supplier_id'   => $this->inputs['supplier_id'],
-            'po_type' => $this->inputs['po_type'],
             'po_date'    => $this->inputs['po_date'],
-            'po_remarks'       => $this->inputs['po_remarks']
+            'remarks'       => $this->inputs['remarks']
         );
         return $this->updateIfNotExist($this->table, $form);
     }
@@ -80,7 +77,7 @@ class PurchaseOrder extends Connection{
         while ($row = $result->fetch_assoc()) {
             $row['supplier_id'] = $Suppliers->name($row['supplier_id']);
             $row['total'] = $this->total($row['po_id']);
-            $row['po_ref'] = $row['reference_number']." (₱".number_format($this->po_balance($row['po_id']),2).")";
+            $row['po_ref'] = $row['reference_number'];
             $rows[] = $row;
         }
         return $rows;
@@ -151,15 +148,7 @@ class PurchaseOrder extends Connection{
 
     public function po_balance($primary_id)
     {
-        $po_total = $this->total($primary_id);
-
-        $fetch_sp = $this->select('tbl_supplier_payment_details as d, tbl_supplier_payment as h', "sum(amount) as total", "d.po_id = $primary_id AND h.sp_id=d.sp_id AND h.status='F'");
-        $paid_total = 0;
-        while ($row = $fetch_sp->fetch_assoc()) {
-            $paid_total += $row['total'];
-        }
-
-        return $po_total-$paid_total;
+       
     }
 
     private function delete_sales_details()
