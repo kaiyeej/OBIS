@@ -98,7 +98,7 @@ if (isset($_SESSION["status"])) {
                     $("#username").val("");
                     $("#password").val("");
                 } else {
-                    $("#alert_div").html('<div class="alert alert-light-success color-success"><i class="bi bi-exclamation-circle"></i> Credentials not found.</div>');
+                    $("#alert_div").html('<div class="alert alert-light-success color-success"><i class="bi bi-exclamation-circle"></i> Successfull login! Redirecting..</div>');
                     setTimeout(function() {
                         window.location = "../homepage";
                     }, 2000);
