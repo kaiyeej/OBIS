@@ -1,4 +1,4 @@
-<form method='POST' id='frm_submit' class="users">
+<form method='POST' id='frm_submit' class="sales">
     <div class="modal fade" id="modalEntry" aria-labelledby="myModalLabel">
         <div class="modal-dialog" style="margin-top: 50px;" role="document">
             <div class="modal-content">
