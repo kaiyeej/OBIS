@@ -22,6 +22,8 @@
                                 <div>
                                     <select class="form-control input-item select2" name="input[customer_id]" id="customer_id" required>
                                     </select>
+
+
                                 </div>
                             </div>
                         </div>
@@ -129,7 +131,7 @@
                                 </div>
                             </div>
 
-                            <div class='btn-group'style="float: right">
+                            <div class='btn-group' style="float: right">
                                 <button type="submit" class="btn btn-sm btn-info" id="btn_submit_2"><i class="bi bi-check2-circle"></i> Submit</button>
                             </div>
                         </form>

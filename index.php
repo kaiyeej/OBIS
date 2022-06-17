@@ -12,13 +12,13 @@ if (!isset($_SESSION["status"])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Mazer Admin Dashboard</title>
+  <title>BeanBrewing Cafė</title>
 
-  <link rel="stylesheet" href="assets/css/pages/form-element-select.css">
+  <!-- <link rel="stylesheet" href="assets/css/pages/form-element-select.css"> -->
   <link rel="stylesheet" href="assets/css/main/app.css">
   <link rel="stylesheet" href="assets/css/main/app-dark.css">
-  <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
-  <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="assets/images/logo/logo_beanbrew2.png" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/images/logo/logo_beanbrew2.png" type="image/png">
 
   <link rel="stylesheet" href="vendors/sweetalert/sweetalert.css">
 
@@ -29,7 +29,80 @@ if (!isset($_SESSION["status"])) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="vendors/datatables.net/jquery.dataTables.js"></script>
   <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+  <link rel="stylesheet" href="vendors/select2/select2.min.css">
 
+  <style>
+    body.theme-dark .form-check-input:checked {
+      background-color: #ad6a1c !important;
+      border-color: #ad6a1c !important;
+    }
+
+    body.theme-dark .btn-primary {
+      background-color: #ad6a1c !important;
+      border-color: #ad6a1c !important;
+    }
+
+    .btn-primary {
+      background-color: #ad6a1c !important;
+      border-color: #ad6a1c !important;
+    }
+
+    .btn-check:focus+.btn-primary,
+    .btn-primary:focus,
+    .btn-primary:hover {
+      background-color: #efa753 !important;
+      ;
+      border-color: #efa753 !important;
+      ;
+    }
+
+    .btn-primary:focus {
+      box-shadow: 0 0 0 0.25rem rgb(255 197 130) !important;
+    }
+
+    body.theme-dark .dropdown-menu {
+      background-color: #161b22 !important;
+    }
+
+    /* .dropdown-menu {
+      background-color: #bdbdbd !important;
+
+    } */
+
+    .form-check-input:focus {
+      border-color: #efa753;
+
+    }
+
+    .page-item.active .page-link {
+      background-color: #ad6a1c !important;
+      border-color: #ad6a1c !important;
+    }
+
+    body.theme-dark ol,
+    body.theme-dark ul {
+      padding-left: 0rem !important;
+    }
+
+    body.theme-dark .select2-container--default .select2-search--dropdown .select2-search__field {
+      border: 1px solid #35354f !important;
+    }
+
+    body.theme-dark .select2-container--default .select2-selection--single {
+      background-color: #1b1b29 !important;
+      border: 1px solid #35354f !important;
+
+    }
+
+    body.theme-dark .select2-dropdown {
+      background-color: #40404d !important;
+    }
+
+    body.theme-dark .select2-container--default .select2-results__option[aria-selected=true] {
+      background-color: #939393 !important;
+      color: #fff !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -40,7 +113,7 @@ if (!isset($_SESSION["status"])) {
         <div class="sidebar-header position-relative">
           <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-              <a href="index.html"><img src="assets/images/logo/logo.svg" alt="Logo" srcset=""></a>
+              <a href="index.html"><img src="assets/images/logo/logo_beanbrew2.png" style="height: 67px;" alt="Logo" srcset=""></a>
             </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
@@ -102,7 +175,7 @@ if (!isset($_SESSION["status"])) {
       <!-- END FOOTER -->
     </div>
   </div>
-  <script src="assets/js/extensions/form-element-select.js"></script>
+  <!-- <script src="assets/js/extensions/form-element-select.js"></script> -->
   <script src="assets/js/app.js"></script>
   <script src="assets/js/extensions/datatables.js"></script>
   <script src="vendors/sweetalert/sweetalert.js"></script>
@@ -140,6 +213,9 @@ if (!isset($_SESSION["status"])) {
 
       $(".select2").css({
         "width": "100%"
+      });
+      $(".select2").select2({
+        dropdownParent: "#modalEntry"
       });
 
     });

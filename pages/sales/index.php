@@ -1,6 +1,25 @@
 <?php
 $Sales = new Sales;
 ?>
+<style>
+    .select2-container--default .select2-selection--single {
+        background-color: #fff !important;
+        border: 1px solid #dce7f1 !important;
+        border-radius: 4px !important;
+        height: 39px !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #909ba6 !important;
+        line-height: 36px !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        border-color: #909ba6 transparent transparent transparent !important;
+        margin-top: 3px !important;
+
+    }
+</style>
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
@@ -38,6 +57,7 @@ $Sales = new Sales;
                     </div>
                 </div>
             </div>
+
             <div class="card-body">
                 <table class="display expandable-table" id="dt_entries" width="100%" cellspacing="0">
                     <thead>
