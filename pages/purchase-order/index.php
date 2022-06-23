@@ -238,5 +238,6 @@
     $(document).ready(function() {
         getEntries();
         getSelectOption('Suppliers', 'supplier_id', 'supplier_name');
+        getSelectOption('Products', 'product_id', 'product_name');
     });
 </script>

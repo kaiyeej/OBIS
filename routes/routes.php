@@ -49,6 +49,10 @@ $routes = array(
         'class_name' => 'Formulation',
         'has_detail' => 1
     ),
+    "job-order" => array(
+        'class_name' => 'JobOrder',
+        'has_detail' => 1
+    ),
 
 
 );
