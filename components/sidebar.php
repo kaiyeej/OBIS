@@ -31,6 +31,13 @@ $page = str_replace("/obis/", "", $request);
             </a>
         </li>
 
+        <li class="sidebar-item <?= $page == 'formulation' ? 'active' : '' ?>">
+            <a href="./formulation" class='sidebar-link'>
+                <i class="bi bi-clipboard2-pulse-fill"></i>
+                <span>Formulation</span>
+            </a>
+        </li>
+
         <li class="sidebar-item <?= $page == 'suppliers' ? 'active' : '' ?>">
             <a href="./suppliers" class='sidebar-link'>
                 <i class="bi bi-people-fill"></i>
@@ -81,15 +88,15 @@ $page = str_replace("/obis/", "", $request);
 
         <li class="sidebar-title">Reports</li>
         
-        <li class="sidebar-item  ">
-            <a href="form-layout.html" class='sidebar-link'>
+        <li class="sidebar-item <?= $page == 'inventory-report' ? 'active' : '' ?>">
+            <a href="./inventory-report" class='sidebar-link'>
                 <i class="bi bi-bar-chart-steps"></i>
                 <span>Inventory Report</span>
             </a>
         </li>
 
-        <li class="sidebar-item  ">
-            <a href="form-layout.html" class='sidebar-link'>
+        <li class="sidebar-item <?= $page == 'sales-order' ? 'active' : '' ?>">
+            <a href="./sales-report" class='sidebar-link'>
                 <i class="bi bi-bar-chart-line-fill"></i>
                 <span>Sales Report</span>
             </a>

@@ -138,7 +138,7 @@ if (!isset($_SESSION["status"])) {
                   <span class="fa fa-power-off"></span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#" onclick="logout();">Logout</a>
+                  <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
 
                 </div>
               </div>

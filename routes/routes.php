@@ -41,6 +41,14 @@ $routes = array(
         'class_name' => 'Expense',
         'has_detail' => 1
     ),
+    "inventory-report" => array(
+        'class_name' => 'InventoryReport',
+        'has_detail' => 0
+    ),
+    "formulation" => array(
+        'class_name' => 'Formulation',
+        'has_detail' => 1
+    ),
 
 );
 /** END SET ROUTES */

@@ -13,5 +13,7 @@ $classes = array(
     'ExpenseCategories' => $pre_class . 'expensecategory.php',
     'Expense'           => $pre_class . 'expense.php',
     'Homepage'          => $pre_class . 'homepage.php',
-
+    'InventoryReport'   => $pre_class . 'inventoryreport.php',
+    'JobOrder'          => $pre_class . 'joborder.php',
+    'Formulation'       => $pre_class . 'formulation.php',
 );
