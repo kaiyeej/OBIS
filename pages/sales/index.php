@@ -270,9 +270,10 @@ $Sales = new Sales;
     }
 
     $(document).ready(function() {
+
         getEntries();
         getSelectOption('Customers', 'customer_id', 'customer_name');
         getSelectOption('Products', 'product_id', 'product_name');
-        
+
     });
 </script>

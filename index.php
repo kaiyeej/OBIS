@@ -189,6 +189,7 @@ if (!isset($_SESSION["status"])) {
   <script type="text/javascript">
     var modal_detail_status = 0;
     $(document).ready(function() {
+
       // FilePond.registerPlugin(
       //   FilePondPluginImagePreview,
       //   FilePondPluginImageExifOrientation,
@@ -212,9 +213,7 @@ if (!isset($_SESSION["status"])) {
       $(".select2").css({
         "width": "100%"
       });
-      $(".select2").select2({
-        dropdownParent: "#modalEntry"
-      });
+
 
     });
 
@@ -342,6 +341,9 @@ if (!isset($_SESSION["status"])) {
     });
 
     function addModal() {
+      $(".select2").select2({
+        dropdownParent: $("#modalEntry")
+      });
       modal_detail_status = 0;
       $("#hidden_id").val(0);
       document.getElementById("frm_submit").reset();
@@ -490,6 +492,7 @@ if (!isset($_SESSION["status"])) {
     // MODULE WITH DETAILS LIKE SALES
 
     function getEntryDetails2(id) {
+
       $("#hidden_id_2").val(id);
       modal_detail_status = 1;
       $.ajax({
@@ -501,6 +504,7 @@ if (!isset($_SESSION["status"])) {
           }
         },
         success: function(data) {
+
           var jsonParse = JSON.parse(data);
           const json = jsonParse.data;
 
@@ -541,9 +545,13 @@ if (!isset($_SESSION["status"])) {
             (typeof(col_list) != 'undefined' && col_list != null) ? col_list.classList.remove('col-12'): '';
             (typeof(col_list) != 'undefined' && col_list != null) ? col_list.classList.add('col-8'): '';
           }
+
           getEntries2();
           $("#modalEntry2").modal('show');
-          $(".select2").select2().trigger('change');
+          // $(".select2").select2().trigger('change');
+          $(".select2").select2({
+            dropdownParent: $("#modalEntry2")
+          });
         }
       });
     }

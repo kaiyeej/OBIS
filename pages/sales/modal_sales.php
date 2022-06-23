@@ -61,7 +61,7 @@
 </form>
 
 
-<div class="modal fade bd-example-modal-lg" id="modalEntry2" aria-labelledby="myModalLabel">
+<div class="modal fade bd-example-modal-lg" id="modalEntry2" aria-labelledby="myModalLabel2">
     <div class="modal-dialog" style="margin-top: 50px;" role="document">
         <div class="modal-content">
             <div class="modal-header" style="display:block;">
@@ -83,8 +83,8 @@
                                 <div class="col-sm-12">
                                     <label><strong>Product</strong></label>
                                     <div>
-                                    <select class="form-control form-control-sm select2" name="input[product_id]" id="product_id" required>
-                                    </select>
+                                        <select class="form-control form-control-sm select2" name="input[product_id]" id="product_id" required>
+                                        </select>
                                     </div>
                                 </div><br>
                                 <div class="col">
@@ -109,7 +109,7 @@
                     <div class="col-sm-12" id="col-list">
                         <div class="btn-group">
                             <button id="menu-delete-selected-items" class="btn btn-danger btn-sm" href="#" style="font-size: small;"><i class='mdi mdi-trash-can-outline'></i>Delete Selected</button>
-                        
+
                             <button id="menu-finish-transaction" class="btn btn-success btn-sm" href="#" style="font-size: small;"><i class='mdi mdi-check-outline'></i>Finish Transaction</button>
                         </div>
                         <div class="table-responsive" style="margin-top: 22px">
