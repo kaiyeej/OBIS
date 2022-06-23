@@ -49,9 +49,8 @@
             <div class="modal-header" style="display:block;">
                 <div class="row" style="font-size: small;">
                     <div class="col-sm-12">
-                        <div><b>Unit:</b> <span id="unit_name_label" class="label-item"></span></div>
-                        <div><b>Date:</b> <span id="repair_date_label" class="label-item"></span></div>
-                        <div><b>Reference:</b> <span id="reference_code_label" class="label-item"></span></div>
+                        <div><b>Product:</b> <span id="product_label" class="label-item"></span></div>
+                        <div><b>Remarks:</b> <span id="remarks_label" class="label-item"></span></div>
                     </div>
                 </div>
             </div>
@@ -63,21 +62,21 @@
 
                             <div class="form-group row">
                                 <div class="col">
-                                    <label><strong>Description</strong></label>
+                                    <label><strong>Product</strong></label>
                                     <div>
-                                        <textarea class="form-control form-control-sm" name="input[description]" id="description" required></textarea>
+                                        <select class="form-control form-control-sm select2" name="input[product_id]" id="product_id_2" required></select>
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <label><strong>Cost</strong></label>
+                                    <label><strong>Qty</strong></label>
                                     <div>
-                                        <input type="number" class="form-control form-control-sm" name="input[cost]" step=".01" min=0 id="cost" required>
+                                        <input type="number" class="form-control form-control-sm input-item" autocomplete="off" name="input[qty]" id="qty" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col">
-                                    <button type="submit" class="btn btn-primary btn-sm"  style="float:right;font-size: small;" id="btn_submit_2"><i class="mdi mdi-plus"></i> Add</button>
+                                    <button type="submit" class="btn btn-primary btn-sm"  style="float:right;font-size: small;" id="btn_submit_2"><i class="mdi mdi-plus"></i> Submit</button>
                                 </div>
                             </div>
 
@@ -88,7 +87,7 @@
                         <div class="btn-group">
                             <button id="menu-delete-selected-items" class="btn btn-danger btn-sm" href="#" style="font-size: small;"><i class='mdi mdi-trash-can-outline'></i>Delete Selected</button>
                         
-                            <button id="menu-finish-transaction" class="btn btn-success btn-sm" href="#" style="font-size: small;"><i class='mdi mdi-check-outline'></i>Finish Transaction</button>
+                            <button id="menu-finish-transaction" style="display:none;" class="btn btn-success btn-sm" href="#" style="font-size: small;"><i class='mdi mdi-check-outline'></i>Finish Transaction</button>
                         </div>
                         <div class="table-responsive" style="margin-top: 22px">
                             <table class="table table-bordered" id="dt_entries_2" width="100%" cellspacing="0">

@@ -33,7 +33,7 @@ $page = str_replace("/obis/", "", $request);
 
         <li class="sidebar-item <?= $page == 'formulation' ? 'active' : '' ?>">
             <a href="./formulation" class='sidebar-link'>
-                <i class="bi bi-clipboard2-pulse-fill"></i>
+                <i class="bi bi-funnel-fill"></i>
                 <span>Formulation</span>
             </a>
         </li>
@@ -68,6 +68,13 @@ $page = str_replace("/obis/", "", $request);
             <a href="./expense" class='sidebar-link'>
                 <i class="bi bi-clipboard2-pulse-fill"></i>
                 <span>Expenses</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item <?= $page == 'job-order' ? 'active' : '' ?>">
+            <a href="./job-order" class='sidebar-link'>
+                <i class="bi bi-list-columns-reverse"></i>
+                <span>Job-order</span>
             </a>
         </li>
 

@@ -1,17 +1,45 @@
-<div class="content-wrapper">
-    <div class="row">
-        <div class="col-md-12 grid-margin">
-            <div class="row">
-                <div class="col-12 col-xl-12 mb-4 mb-xl-0">
-                    <h3 class="font-weight-bold">Job-Order</h3>
-                    <h6 class="font-weight-normal mb-0">Manage job-order here</h6>
-                </div>
-            </div>
 
-            <div class="col-12 col-xl-12 card shadow mb-4">
-                <div class="card-header py-3">
-                    <!--<h6 class="m-0 font-weight-bold text-primary">List of Users</h6>-->
-                    <div class="btn-group pull-right">
+<style>
+    .select2-container--default .select2-selection--single {
+        background-color: #fff !important;
+        border: 1px solid #dce7f1 !important;
+        border-radius: 4px !important;
+        height: 39px !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #909ba6 !important;
+        line-height: 36px !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        border-color: #909ba6 transparent transparent transparent !important;
+        margin-top: 3px !important;
+
+    }
+</style>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Job Order</h3>
+                <p class="text-subtitle text-muted">Manage job Order here</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="./homepage">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Job Order</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <div class="btn-group divider divider-right">
+                    <div style="float: right">
                         <a href="#" class="btn btn-primary btn-sm btn-icon-split" onclick="addModal()">
                             <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
@@ -26,32 +54,31 @@
                         </a>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="display expandable-table" id="dt_entries" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th><input type='checkbox' onchange="checkAll(this, 'dt_id')"></th>
-                                    <th></th>
-                                    <th>Date</th>
-                                    <th>Reference</th>
-                                    <th>Product</th>
-                                    <th>No. of Batches</th>
-                                    <th>Status</th>
-                                    <th>Date Added</th>
-                                    <th>Date Modified</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            </div>
+
+            <div class="card-body">
+                <table class="display expandable-table" id="dt_entries" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th><input type='checkbox' onchange="checkAll(this, 'dt_id')"></th>
+                                <th></th>
+                                <th>Date</th>
+                                <th>Reference</th>
+                                <th>Product</th>
+                                <th>No. of Batches</th>
+                                <th>Status</th>
+                                <th>Date Added</th>
+                                <th>Date Modified</th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
+    </section>
 </div>
-<?php include 'modal_job_order.php' ?>
+<?php require_once 'modal_job_order.php'; ?>
 <script type="text/javascript">
     function getEntries() {
         $("#dt_entries").DataTable().destroy();
