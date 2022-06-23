@@ -259,6 +259,11 @@ $Sales = new Sales;
         });
     }
 
+    function fetchProductsByCategory() {
+        var product_category_id = $("#product_category_id").val();
+
+    }
+
     function changeProduct() {
         var optionSelected = $("#product_id").find('option:selected').attr('product_price');
         $("#price").val(optionSelected);
@@ -268,5 +273,6 @@ $Sales = new Sales;
         getEntries();
         getSelectOption('Customers', 'customer_id', 'customer_name');
         getSelectOption('Products', 'product_id', 'product_name');
+        
     });
 </script>

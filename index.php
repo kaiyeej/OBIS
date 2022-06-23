@@ -543,6 +543,7 @@ if (!isset($_SESSION["status"])) {
           }
           getEntries2();
           $("#modalEntry2").modal('show');
+          $(".select2").select2().trigger('change');
         }
       });
     }
