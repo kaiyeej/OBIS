@@ -1,4 +1,4 @@
-<form method='POST' id='frm_submit' class="users">
+<form method='POST' id='frm_submit' class="purchaseorder">
     <div class="modal fade" id="modalEntry" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" style="margin-top: 50px;" role="document">
             <div class="modal-content">
@@ -11,7 +11,7 @@
                         <div class="col">
                             <label><strong>Reference #</strong></label>
                             <div>
-                                <input type="text" class="form-control input-item" name="input[reference_number]" maxlength="30" id="reference_number" readonly required>
+                                <input type="text" class="form-control form-control-sm input-item" name="input[reference_number]" maxlength="30" id="reference_number" readonly required>
                             </div>
                         </div>
                     </div>
@@ -19,13 +19,13 @@
                         <div class="col">
                             <label><strong>Supplier</strong></label>
                             <div>
-                                <select class="form-control" name="input[supplier_id]" id="supplier_id" required></select >
+                                <select class="form-control form-control-sm input-item select2" name="input[supplier_id]" id="supplier_id" required></select >
                             </div>
                         </div>
                         <div class="col">
                             <label><strong>Date</strong></label>
                             <div>
-                            <input type="date" class="form-control input-item" name="input[po_date]" id="po_date" required>
+                            <input type="date" class="form-control form-control-sm input-item" name="input[po_date]" id="po_date" required>
                             </div>
                         </div>
                     </div>
@@ -54,54 +54,33 @@
 </form>
 
 
-<div class="modal fade bd-example-modal-lg" id="modalEntry2" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog  modal-lg" role="document">
+<div class="modal fade bd-example-modal-lg" id="modalEntry2" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="margin-top: 50px;" role="document">
         <div class="modal-content">
             <div class="modal-header" style="display:block;">
                 <div class="row" style="font-size: small;">
-                    <div class="col-sm-4">
+                    <div class="col-sm-12">
                         <div><b>Supplier:</b> <span id="supplier_name_label" class="label-item"></span></div>
                         <div><b>Remarks:</b> <span id="remarks_label" class="label-item"></span></div>
                         <div><b>Date:</b> <span id="po_date_label" class="label-item"></span></div>
                         <div><b>Reference:</b> <span id="reference_number_label" class="label-item"></span></div> 
-                    </div>   
-                    <div class="col-sm-8">
-                        <ul class="nav justify-content-end">
-                            <li class="nav-item">
-                                <a id="menu-edit-transaction" class="nav-link" href="#" style="font-size: small;"><i class='ti ti-pencil'></i> Edit Sales</a>
-                            </li>
-                            <li class="nav-item">
-                                <a id="menu-delete-selected-items" class="nav-link" href="#" style="font-size: small;"><i class='ti ti-trash'></i> Delete Selected Items</a>
-                            </li>
-                            <li class="nav-item">
-                                <a id="menu-finish-transaction" class="nav-link" href="#" style="font-size: small;"><i class='ti ti-check'></i> Finish Transaction</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" data-bs-dismiss="modal" style="font-size: small;"><i class='ti ti-close'></i> Close</a>
-                            </li>
-                            <!--<li class="nav-item">
-                                <a class="nav-link disabled" href="#">Disabled</a>
-                            </li>-->
-                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="padding: 15px;">
                 <div class="row">
-                    <div class="col-4" id="col-item">
+                    <div class="col-sm-12" id="col-item">
                         <form method='POST' id='frm_submit_2'>
                             <input type="hidden" id="hidden_id_2" name="input[po_id]">
 
                             <div class="form-group row">
-                                <div class="col">
+                                <div class="col-sm-12">
                                     <label><strong>Product</strong></label>
                                     <div>
-                                    <select class="form-control" name="input[product_id]" id="product_id" required></select>
+                                    <select class="form-control form-control-sm select2" name="input[product_id]" id="product_id" required>
+                                    </select>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
+                                </div><br>
                                 <div class="col">
                                     <label><strong>Qty</strong></label>
                                     <div>
@@ -109,20 +88,26 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <label><strong>Price</strong></label>
+                                <label><strong>Price</strong></label>
                                     <div>
                                         <input type="number" class="form-control" name="input[supplier_price]" step=".01" min=0 id="supplier_price" required>
                                     </div>
                                 </div>
                             </div>
-                            <div class='btn-group'style="float: right">
+                            <div class='btn-group' style="float: right">
                                 <button type="submit" class="btn btn-sm btn-info" id="btn_submit_2"><i class="bi bi-check2-circle"></i> Submit</button>
                             </div>
                         </form>
                     </div>
-                    <div class="col-8" id="col-list">
-                        <div class="table-responsive">
-                            <table class="display expandable-table" id="dt_entries_2" width="100%" cellspacing="0">
+                    <hr style="margin-top: 10px;">
+                    <div class="col-sm-12" id="col-list">
+                        <div class="btn-group">
+                            <button id="menu-delete-selected-items" class="btn btn-danger btn-sm" href="#" style="font-size: small;"><i class='mdi mdi-trash-can-outline'></i>Delete Selected</button>
+                        
+                            <button id="menu-finish-transaction" class="btn btn-success btn-sm" href="#" style="font-size: small;"><i class='mdi mdi-check-outline'></i>Finish Transaction</button>
+                        </div>
+                        <div class="table-responsive" style="margin-top: 22px">
+                            <table class="table table-bordered" id="dt_entries_2" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th><input type='checkbox' onchange="checkAll(this, 'dt_id_2')"></th>
@@ -143,6 +128,12 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button id="menu-edit-transaction" class="btn btn-info btn-sm" href="#" style="font-size: small;"><i class='mdi mdi-lead-pencil'></i> Edit Transaction</button>
+                    <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="font-size: small;">Close</button>
                 </div>
             </div>
         </div>
