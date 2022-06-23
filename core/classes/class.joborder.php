@@ -26,13 +26,12 @@ class JobOrder extends Connection
         $primary_id = $this->inputs[$this->pk];
         $fk_det     = $this->inputs[$this->fk_det];
         $Products = new Products;
-        $product_price = $Products->productPrice($fk_det);
+        $product_cost = $Products->productCost($fk_det);
         $form = array(
-            $this->pk               => $this->inputs[$this->pk],
-            $this->fk_det           => $fk_det,
-            //'product_category_id'   => $this->inputs['product_category_id'],
-            'qty'              => $this->inputs['qty'],
-            'cost'                 => $product_price
+            $this->pk       => $this->inputs[$this->pk],
+            $this->fk_det   => $fk_det,
+            'qty'           => $this->inputs['qty'],
+            'cost'          => $product_cost
         );
 
         return $this->insertIfNotExist($this->table_detail, $form, "$this->pk = '$primary_id' AND $this->fk_det = '$fk_det'");

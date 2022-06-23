@@ -150,13 +150,12 @@ $Sales = new Sales;
                         } else {
                             var display = "display: none;";
                         }
-                        // return "<center><button class='btn btn-primary btn-circle btn-sm' onclick='getEntryDetails2(" + row.sales_id + ")'><span class='bi bi-pencil-square'></span></button></center>";
+
                         return '<div class="dropdown">' +
                             '<button class="btn btn-primary dropdown-toggle me-1 btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i>' +
                             '</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
                             '<a class="dropdown-item" href="#" onclick="getEntryDetails2(' + row.sales_id + ')"><span class="bi bi-pencil-square"></span> Edit Record</a>' +
                             '<a class="dropdown-item" href="#" style="' + display + '" onclick="printRecord(' + row.sales_id + ')"><span class="fa fa-print"></span> Print Record</a>' +
-                            // '<a class="dropdown-item" href="#">Option 3</a></div>' +
                             '</div>';
                     }
                 },

@@ -75,7 +75,7 @@
                 <div class="row">
                     <div class="col-sm-12" id="col-item">
                         <form method='POST' id='frm_submit_2'>
-                            <input type="hidden" id="hidden_id_2" name="input[sales_id]">
+                            <input type="hidden" id="hidden_id_2" name="input[job_order_id]">
 
                             <div class="form-group row">
                                 <div class="col-sm-12">

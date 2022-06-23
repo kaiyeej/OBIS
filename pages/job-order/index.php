@@ -95,7 +95,18 @@
                 },
                 {
                     "mRender": function(data, type, row) {
-                        return "<center><button class='btn btn-primary btn-circle btn-sm' onclick='getEntryDetails2(" + row.job_order_id + ")'><span class='ti ti-list'></span></button></center>";
+                        if (row.status == 'F') {
+                            var display = "";
+                        } else {
+                            var display = "display: none;";
+                        }
+
+                        return '<div class="dropdown">' +
+                            '<button class="btn btn-primary dropdown-toggle me-1 btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i>' +
+                            '</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                            '<a class="dropdown-item" href="#" onclick="getEntryDetails2(' + row.job_order_id + ')"><span class="bi bi-pencil-square"></span> Edit Record</a>' +
+                            '<a class="dropdown-item" href="#" style="' + display + '" onclick="printRecord(' + row.job_order_id + ')"><span class="fa fa-print"></span> Print Record</a>' +
+                            '</div>';
                     }
                 },
                 {
