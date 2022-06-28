@@ -1,6 +1,6 @@
 <?php
 $request = $_SERVER['REQUEST_URI'];
-$page = str_replace("/obis/", "", $request);
+$page = str_replace("/jesm/", "", $request);
 ?>
 <div class="sidebar-menu">
     <ul class="menu">
@@ -23,20 +23,6 @@ $page = str_replace("/obis/", "", $request);
                 <span>Customers</span>
             </a>
         </li>
-       
-        <li class="sidebar-item <?= $page == 'expense-category' ? 'active' : '' ?>">
-            <a href="./expense-category" class='sidebar-link'>
-                <i class="bi bi-card-list"></i>
-                <span>Expense Category</span>
-            </a>
-        </li>
-
-        <li class="sidebar-item <?= $page == 'formulation' ? 'active' : '' ?>">
-            <a href="./formulation" class='sidebar-link'>
-                <i class="bi bi-funnel-fill"></i>
-                <span>Formulation</span>
-            </a>
-        </li>
 
         <li class="sidebar-item <?= $page == 'suppliers' ? 'active' : '' ?>">
             <a href="./suppliers" class='sidebar-link'>
@@ -45,31 +31,23 @@ $page = str_replace("/obis/", "", $request);
             </a>
         </li>
 
-        
-        <li class="sidebar-item <?= $page == 'products' || $page == 'product-categories' ? 'active' : '' ?>  has-sub">
-            <a href="#" class='sidebar-link'>
+        <li class="sidebar-item <?= $page == 'products' ? 'active' : '' ?>">
+            <a href="./products" class='sidebar-link'>
                 <i class="bi bi-boxes"></i>
-                <span>Product Entry</span>
+                <span>Products</span>
             </a>
-            <ul class="submenu ">
-                <li class="submenu-item ">
-                    <a href="./products">Products</a>
-                </li>
-                <li class="submenu-item ">
-                    <a href="./product-categories">Category</a>
-                </li>
-            </ul>
         </li>
-        
+
+        <li class="sidebar-item <?= $page == 'services' ? 'active' : '' ?>">
+            <a href="./services" class='sidebar-link'>
+                <i class="bi bi-wrench-adjustable-circle"></i>
+                <span>Services</span>
+            </a>
+        </li>
+
         
         <li class="sidebar-title">Transactions</li>
 
-        <li class="sidebar-item <?= $page == 'expense' ? 'active' : '' ?>">
-            <a href="./expense" class='sidebar-link'>
-                <i class="bi bi-clipboard2-pulse-fill"></i>
-                <span>Expenses</span>
-            </a>
-        </li>
 
         <li class="sidebar-item <?= $page == 'job-order' ? 'active' : '' ?>">
             <a href="./job-order" class='sidebar-link'>
@@ -78,12 +56,6 @@ $page = str_replace("/obis/", "", $request);
             </a>
         </li>
 
-        <li class="sidebar-item <?= $page == 'sales' ? 'active' : '' ?>">
-            <a href="./sales" class='sidebar-link'>
-                <i class="bi bi-basket-fill"></i>
-                <span>Sales</span>
-            </a>
-        </li>
 
         <li class="sidebar-item <?= $page == 'purchase-order' ? 'active' : '' ?>">
             <a href="./purchase-order" class='sidebar-link'>

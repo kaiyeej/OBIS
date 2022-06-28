@@ -17,11 +17,11 @@ if (isset($_SESSION["status"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeanBrewing Cafė</title>
+    <title>JESM</title>
     <link rel="stylesheet" href="../assets/css/main/app.css">
     <link rel="stylesheet" href="../assets/css/pages/auth.css">
-    <link rel="shortcut icon" href="../assets/images/logo/logo_beanbrew2.png" type="image/x-icon">
-    <link rel="shortcut icon" href="../assets/images/logo/logo_beanbrew2.png" type="image/png">
+    <link rel="shortcut icon" href="../assets/images/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/images/logo.png" type="image/png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 
@@ -32,9 +32,9 @@ if (isset($_SESSION["status"])) {
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <div class="auth-logo" style="margin-bottom: 1rem;">
-                        <a href="index.html"><img src="../assets/images/logo/logo_beanbrew1.png" style="height: 70px;" alt="Logo"></a>
+                        <!--<a href="index.html"><img src="../assets/images/banner.png" style="height: 70px;" alt="Logo"></a>-->
                     </div>
-                    <h5 class="auth-title" style="font-size: 25px;">Log in</h5>
+                    <h5 class="auth-title" style="font-size: 25px;color: #3f51b5;">Log in</h5>
                     <p class="auth-subtitle mb-5" style="font-size: 16px; line-height: 1rem;">Log in with your data that you entered during registration.</p>
                     <div id="alert_div"></div>
                     <form method="POST" id="frm_login">
@@ -56,7 +56,7 @@ if (isset($_SESSION["status"])) {
                                 Keep me logged in
                             </label>
                         </div> -->
-                        <button button="submit" style="background-color: #ad6a1c; border-color: #ad6a1c;" class="btn btn-primary btn-block btn-lg shadow-lg mt-2" id="btn_submit">Log in</button>
+                        <button button="submit" style="background-color:#3f51b5; " class="btn btn-primary btn-block btn-lg shadow-lg mt-2" id="btn_submit">Log in</button>
                     </form>
                     <!-- <div class="text-center mt-5 text-lg fs-4">
                         <p class="text-gray-600">Don't have an account? <a href="auth-register.html" class="font-bold">Sign

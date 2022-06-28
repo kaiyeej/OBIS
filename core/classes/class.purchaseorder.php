@@ -12,10 +12,11 @@ class PurchaseOrder extends Connection
     public function add()
     {
         $form = array(
-            $this->name => $this->clean($this->inputs[$this->name]),
-            'supplier_id' => $this->inputs['supplier_id'],
-            'po_date' => $this->inputs['po_date'],
-            'remarks' => $this->inputs['remarks'],
+            $this->name     => $this->clean($this->inputs[$this->name]),
+            'supplier_id'   => $this->inputs['supplier_id'],
+            'po_date'       => $this->inputs['po_date'],
+            'remarks'       => $this->inputs['remarks'],
+            'date_added'    => $this->getCurrentDate(),
         );
         return $this->insertIfNotExist($this->table, $form, '', 'Y');
     }

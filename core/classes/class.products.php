@@ -10,19 +10,16 @@ class Products extends Connection
         $form = array(
             $this->name             => $this->clean($this->inputs[$this->name]),
             'product_price'         => $this->inputs['product_price'],
-            'product_img'           => 'default.png',
-            'product_category_id'   => $this->inputs['product_category_id'],
             'remarks'               => $this->inputs['remarks'],
-            'product_code'          => $this->inputs['product_code']
+            'date_added'            => $this->getCurrentDate(),
         );
-        return $this->insertIfNotExist($this->table, $form, "product_code=" . $this->inputs['product_code'] . " ");
+        return $this->insertIfNotExist($this->table, $form);
     }
 
     public function edit()
     {
         $form = array(
             $this->name             => $this->clean($this->inputs[$this->name]),
-            'product_category_id'   => $this->inputs['product_category_id'],
             'product_price'         => $this->inputs['product_price'],
             'remarks'               => $this->inputs['remarks']
         );
@@ -32,11 +29,9 @@ class Products extends Connection
     public function show()
     {
         $param = isset($this->inputs['param']) ? $this->inputs['param'] : '';
-        $ProductCategories = new ProductCategories();
         $rows = array();
         $result = $this->select($this->table, '*', $param);
         while ($row = $result->fetch_assoc()) {
-            $row['product_category'] = $ProductCategories->name($row['product_category_id']);
             $rows[] = $row;
         }
         return $rows;

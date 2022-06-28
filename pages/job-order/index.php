@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Job Order</h3>
-                <p class="text-subtitle text-muted">Manage job Order here</p>
+                <p class="text-subtitle text-muted">Manage Job Order here</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -64,8 +64,8 @@
                                 <th></th>
                                 <th>Date</th>
                                 <th>Reference</th>
-                                <th>Product</th>
-                                <th>No. of Batches</th>
+                                <th>Customer</th>
+                                <th>Service</th>
                                 <th>Status</th>
                                 <th>Date Added</th>
                                 <th>Date Modified</th>
@@ -90,13 +90,13 @@
             },
             "columns": [{
                     "mRender": function(data, type, row) {
-                        return row.status == 'F' ? '' : "<input type='checkbox' value=" + row.job_order_id + " class='dt_id' style='position: initial; opacity:1;'>";
+                        return row.status == 'F' ? '' : "<input type='checkbox' value=" + row.jo_id + " class='dt_id' style='position: initial; opacity:1;'>";
                     }
                 },
                 {
                     "mRender": function(data, type, row) {
                         if (row.status == 'F') {
-                            var display = "";
+                            var display = "display: none;";
                         } else {
                             var display = "display: none;";
                         }
@@ -104,26 +104,26 @@
                         return '<div class="dropdown">' +
                             '<button class="btn btn-primary dropdown-toggle me-1 btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i>' +
                             '</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-                            '<a class="dropdown-item" href="#" onclick="getEntryDetails2(' + row.job_order_id + ')"><span class="bi bi-pencil-square"></span> Edit Record</a>' +
-                            '<a class="dropdown-item" href="#" style="' + display + '" onclick="printRecord(' + row.job_order_id + ')"><span class="fa fa-print"></span> Print Record</a>' +
+                            '<a class="dropdown-item" href="#" onclick="getEntryDetails2(' + row.jo_id + ')"><span class="bi bi-pencil-square"></span> Edit Record</a>' +
+                            '<a class="dropdown-item" href="#" style="' + display + '" onclick="printRecord(' + row.jo_id + ')"><span class="fa fa-print"></span> Print Record</a>' +
                             '</div>';
                     }
                 },
                 {
-                    "data": "job_order_date"
+                    "data": "jo_date"
                 },
                 {
                     "data": "reference_number"
                 },
                 {
-                    "data": "product"
+                    "data": "customer"
                 },
                 {
-                    "data": "no_of_batches"
+                    "data": "service"
                 },
                 {
                     "mRender": function(data, type, row) {
-                        return row.status == 'F' ? "<span class='badge badge-success'>Finish</span>" : "<span class='badge badge-danger'>Saved</span>";
+                        return row.status == 'F' ? "<strong style='color:#009688;'>Finished</strong>" : "<strong style='color:#795548;'>Saved</strong>";
                     }
                 },
                 {
@@ -138,7 +138,7 @@
 
 
     function getEntries2() {
-        var params = "job_order_id = '" + $("#hidden_id_2").val() + "'";
+        var params = "jo_id = '" + $("#hidden_id_2").val() + "'";
         $("#dt_entries_2").DataTable().destroy();
         $("#dt_entries_2").DataTable({
             "processing": true,
@@ -152,6 +152,40 @@
                     }
                 }
             },
+            "footerCallback": function(row, data, start, end, display) {
+                var api = this.api();
+
+                // Remove the formatting to get integer data for summation
+                var intVal = function(i) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '') * 1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                // Total over all pages
+                total = api
+                    .column(4)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                // Total over this page
+                pageTotal = api
+                    .column(4, {
+                        page: 'current'
+                    })
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                // Update footer
+                $(api.column(4).footer()).html(
+                    "&#x20B1;" + pageTotal + ' ( &#x20B1; ' + total + ' )'
+                );
+            },
             "columns": [{
                     "mRender": function(data, type, row) {
                         return "<input type='checkbox' value=" + row.jo_detail_id + " class='dt_id_2' style='position: initial; opacity:1;'>";
@@ -164,17 +198,20 @@
                     "data": "qty"
                 },
                 {
-                    "data": "cost"
+                    "data": "price"
+                },
+                {
+                    "data": "amount"
                 }
             ]
         });
     }
 
-    function getProductCost(){
+    function getProductPrice(){
         var id = $("#product_id").val();
         $.ajax({
             type: "POST",
-            url: "controllers/sql.php?c=" + route_settings.class_name + "&q=view",
+            url: "controllers/sql.php?c=Products&q=view",
             data: {
             input: {
                 id: id
@@ -182,8 +219,8 @@
             },
             success: function(data) {
                 var jsonParse = JSON.parse(data);
-                const json = jsonParse.data;
-                $("#cost").val(json.cost);
+                var json = jsonParse.data;
+                $("#price").val(json.product_price);
             }
         });
     }
@@ -194,7 +231,8 @@
     $(document).ready(function() {
         schema();
         getEntries();
-        getSelectOption('Products', 'finished_product_id', 'product_name', "is_package = 1");
+        getSelectOption('Customers', 'customer_id', 'customer_name');
+        getSelectOption('Services', 'service_id', 'service_name');
         getSelectOption('Products', 'product_id', 'product_name');
     });
 </script>

@@ -29,25 +29,17 @@ $routes = array(
         'class_name' => 'Products',
         'has_detail' => 0
     ),
-    "product-categories" => array(
-        'class_name' => 'ProductCategories',
+    "services" => array(
+        'class_name' => 'Services',
         'has_detail' => 0
     ),
     "purchase-order" => array(
         'class_name' => 'PurchaseOrder',
         'has_detail' => 1
     ),
-    "expense" => array(
-        'class_name' => 'Expense',
-        'has_detail' => 1
-    ),
     "inventory-report" => array(
         'class_name' => 'InventoryReport',
         'has_detail' => 0
-    ),
-    "formulation" => array(
-        'class_name' => 'Formulation',
-        'has_detail' => 1
     ),
     "job-order" => array(
         'class_name' => 'JobOrder',
@@ -60,7 +52,7 @@ $routes = array(
 
 
 $base_folder = "pages/";
-$page = str_replace("/OBIS/", "", $request);
+$page = str_replace("/jesm/", "", $request);
 
 // chec if has parameters
 if (substr_count($page, "?") > 0) {

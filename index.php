@@ -12,13 +12,13 @@ if (!isset($_SESSION["status"])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BeanBrewing Cafė</title>
+  <title>JESM</title>
 
   <!-- <link rel="stylesheet" href="assets/css/pages/form-element-select.css"> -->
   <link rel="stylesheet" href="assets/css/main/app.css">
   <link rel="stylesheet" href="assets/css/main/app-dark.css">
-  <link rel="shortcut icon" href="assets/images/logo/logo_beanbrew2.png" type="image/x-icon">
-  <link rel="shortcut icon" href="assets/images/logo/logo_beanbrew2.png" type="image/png">
+  <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/images/logo.png" type="image/png">
 
   <link rel="stylesheet" href="vendors/sweetalert/sweetalert.css">
 
@@ -33,18 +33,18 @@ if (!isset($_SESSION["status"])) {
 
   <style>
     body.theme-dark .form-check-input:checked {
-      background-color: #ad6a1c !important;
-      border-color: #ad6a1c !important;
+      background-color: #435ebe !important;
+      border-color: #435ebe !important;
     }
 
     body.theme-dark .btn-primary {
-      background-color: #ad6a1c !important;
-      border-color: #ad6a1c !important;
+      background-color: #435ebe !important;
+      border-color: #435ebe !important;
     }
 
     .btn-primary {
-      background-color: #ad6a1c !important;
-      border-color: #ad6a1c !important;
+      background-color: #435ebe !important;
+      border-color: #435ebe !important;
     }
 
     .btn-check:focus+.btn-primary,
@@ -75,8 +75,8 @@ if (!isset($_SESSION["status"])) {
     }
 
     .page-item.active .page-link {
-      background-color: #ad6a1c !important;
-      border-color: #ad6a1c !important;
+      background-color: #435ebe !important;
+      border-color: #435ebe !important;
     }
 
     body.theme-dark ol,
@@ -113,7 +113,7 @@ if (!isset($_SESSION["status"])) {
         <div class="sidebar-header position-relative">
           <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-              <a href="index.html"><img src="assets/images/logo/logo_beanbrew2.png" style="height: 67px;" alt="Logo" srcset=""></a>
+              <a href="index.html"><img src="assets/images/logo.png" style="height: 67px;" alt="Logo" srcset=""></a>
             </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
