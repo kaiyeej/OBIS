@@ -1,4 +1,4 @@
-<form method='POST' id='frm_submit' class="sales">
+<form method='POST' id='frm_submit' class="formulation">
     <div class="modal fade" id="modalEntry" aria-labelledby="myModalLabel">
         <div class="modal-dialog" style="margin-top: 50px;" role="document">
             <div class="modal-content">
@@ -6,32 +6,14 @@
                     <h4 class="modal-title" id="modalLabel"><span class='fa fa-pen'></span> Add Entry</h4>
                 </div>
                 <div class="modal-body" style="padding: 15px;">
-                    <input type="hidden" id="hidden_id" name="input[sales_id]">
+                    <input type="hidden" id="hidden_id" name="input[formulation_id]">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label><strong>Reference</strong></label>
+                                <label><strong>Product</strong></label>
                                 <div>
-                                    <input type="text" class="form-control input-item" name="input[reference_number]" maxlength="30" id="reference_number" readonly required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label><strong>Customer</strong></label>
-                                <div>
-                                    <select class="form-control input-item select2" name="input[customer_id]" id="customer_id" required>
+                                    <select class="form-control form-control-sm input-item select2" name="input[product_id]" id="product_id" required>
                                     </select>
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label><strong>Date</strong></label>
-                                <div>
-                                    <input type="date" class="form-control input-item" name="input[sales_date]" id="sales_date" required>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +21,7 @@
                             <div class="form-group">
                                 <label><strong>Remarks</strong></label>
                                 <div>
-                                    <textarea class="form-control input-item" name="input[remarks]" id="remarks" placeholder="Remarks" maxlength="255"></textarea>
+                                    <textarea class="form-control form-control-sm input-item" name="input[remarks]" id="remarks" autocomplete="off" placeholder="Remarks" maxlength="255"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -61,15 +43,14 @@
 </form>
 
 
-<div class="modal fade bd-example-modal-lg" id="modalEntry2" aria-labelledby="myModalLabel2">
+<div class="modal fade bd-example-modal-lg" id="modalEntry2" aria-labelledby="myModalLabel">
     <div class="modal-dialog" style="margin-top: 50px;" role="document">
         <div class="modal-content">
             <div class="modal-header" style="display:block;">
                 <div class="row" style="font-size: small;">
                     <div class="col-sm-12">
-                        <div><b>Customer:</b> <span id="customer_name_label" class="label-item"></span></div>
-                        <div><b>Date:</b> <span id="sales_date_label" class="label-item"></span></div>
-                        <div><b>Reference:</b> <span id="reference_number_label" class="label-item"></span></div>
+                        <div><b>Product:</b> <span id="product_label" class="label-item"></span></div>
+                        <div><b>Remarks:</b> <span id="remarks_label" class="label-item"></span></div>
                     </div>
                 </div>
             </div>
@@ -77,59 +58,49 @@
                 <div class="row">
                     <div class="col-sm-12" id="col-item">
                         <form method='POST' id='frm_submit_2'>
-                            <input type="hidden" id="hidden_id_2" name="input[sales_id]">
+                            <input type="hidden" id="hidden_id_2" name="input[formulation_id]">
 
                             <div class="form-group row">
-                                <div class="col-sm-12">
+                                <div class="col">
                                     <label><strong>Product</strong></label>
                                     <div>
-                                        <select class="form-control form-control-sm select2" name="input[product_id]" id="product_id" required>
-                                        </select>
+                                        <select class="form-control form-control-sm select2" name="input[product_id]" id="product_id_2" required></select>
                                     </div>
-                                </div><br>
+                                </div>
                                 <div class="col">
                                     <label><strong>Qty</strong></label>
                                     <div>
-                                        <input type="number" class="form-control form-control-sm" name="input[qty]" step=".01" min=0 id="qty" required>
+                                        <input type="number" class="form-control form-control-sm input-item" autocomplete="off" name="input[qty]" id="qty" required>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="form-group row">
                                 <div class="col">
-                                    <label><strong>Price</strong></label>
-                                    <div>
-                                        <input type="number" class="form-control form-control-sm" name="input[price]" step=".01" min=0 id="price" readonly required>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm"  style="float:right;font-size: small;" id="btn_submit_2"><i class="mdi mdi-plus"></i> Submit</button>
                                 </div>
                             </div>
-                            <div class='btn-group' style="float: right">
-                                <button type="submit" class="btn btn-sm btn-info" id="btn_submit_2"><i class="bi bi-check2-circle"></i> Submit</button>
-                            </div>
+
                         </form>
                     </div>
-                    <hr style="margin-top: 10px;">
+                        <hr>
                     <div class="col-sm-12" id="col-list">
                         <div class="btn-group">
                             <button id="menu-delete-selected-items" class="btn btn-danger btn-sm" href="#" style="font-size: small;"><i class='mdi mdi-trash-can-outline'></i>Delete Selected</button>
-
-                            <button id="menu-finish-transaction" class="btn btn-success btn-sm" href="#" style="font-size: small;"><i class='mdi mdi-check-outline'></i>Finish Transaction</button>
+                        
+                            <button id="menu-finish-transaction" style="display:none;" class="btn btn-success btn-sm" href="#" style="font-size: small;"><i class='mdi mdi-check-outline'></i>Finish Transaction</button>
                         </div>
                         <div class="table-responsive" style="margin-top: 22px">
                             <table class="table table-bordered" id="dt_entries_2" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th><input type='checkbox' onchange="checkAll(this, 'dt_id_2')"></th>
-                                        <th>Product</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
-                                        <th>Amount</th>
+                                        <th>Description</th>
+                                        <th>Cost</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                                 <tfoot>
-                                    <tr>
-                                        <th colspan="4" style="text-align:right">Total:</th>
-                                        <th></th>
-                                    </tr>
                                 </tfoot>
                             </table>
                         </div>

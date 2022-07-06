@@ -148,10 +148,6 @@ class PurchaseOrder extends Connection
         return $row[0];
     }
 
-    public function po_balance($primary_id)
-    {
-    }
-
     private function delete_sales_details()
     {
         $query = "CREATE TRIGGER `delete_po_details` AFTER DELETE ON `tbl_purchase_order` FOR EACH ROW DELETE FROM tbl_purchase_order_details WHERE po_id = OLD.po_id";
