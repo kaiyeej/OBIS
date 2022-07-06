@@ -23,23 +23,31 @@
                         <div class="col-md-4">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Start Date</span>
-                                <input type="date" class="form-control" name="input[start_date]" value="<?php echo date('Y-m-01', strtotime(date("Y-m-d"))); ?>" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="date" class="form-control" id="start_date" value="<?php echo date('Y-m-01', strtotime(date("Y-m-d"))); ?>" aria-label="Username" aria-describedby="basic-addon1">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">End Date</span>
-                                <input type="date" value="<?php echo date('Y-m-t', strtotime(date("Y-m-d"))) ?>" class="form-control" name="input[end_date]" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="date" value="<?php echo date('Y-m-t', strtotime(date("Y-m-d"))) ?>" class="form-control" id="end_date" aria-label="Username" aria-describedby="basic-addon1">
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <a href="#" class="btn icon icon-left btn-primary" style="float: left;"><i data-feather="refresh-cw"></i> Generate</a>
+                        <div class="col-md-4">
+                            <a href="#" onclick="generateData()" class="btn icon icon-left btn-success" style="float: left; margin-right: 10px;"><i data-feather="refresh-cw"></i> Generate</a> <a href="#" onclick="printCanvas()" class="btn icon icon-left btn-primary" style="float: left;"><i data-feather="printer"></i> Print</a>
                         </div>
+
 
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body" id="print_canvas">
+                <div id="title_print" style="display: none;">
+                    <center>
+                        <h4><strong>Inventory Report</strong></h4>
+                    </center>
+                    <br>
+                </div>
+
                 <table class="display expandable-table" id="dt_entries" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -62,6 +70,8 @@
     });
 
     function getEntries() {
+        var start_date = $("#start_date").val();
+        var end_date = $("#end_date").val();
         $("#dt_entries").DataTable().destroy();
         $("#dt_entries").DataTable({
             "searching": false,
@@ -70,19 +80,23 @@
             "processing": true,
             "ajax": {
                 "url": "controllers/sql.php?c=" + route_settings.class_name + "&q=generate_report",
-                "dataSrc": "data"
+                "dataSrc": "data",
+                "data": {
+                    start_date: start_date,
+                    end_date: end_date
+                }
             },
             "columns": [{
-                    "data": "product_id"
+                    "data": "product_name"
                 },
                 {
-                    "data": "product_id"
+                    "data": "product_price"
                 },
                 {
-                    "data": "product_id"
+                    "data": "product_category"
                 },
                 {
-                    "data": "product_id"
+                    "data": "qty"
                 }
             ]
         });

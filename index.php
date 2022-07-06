@@ -218,6 +218,7 @@ if (!isset($_SESSION["status"])) {
     });
 
     function printCanvas() {
+      $("#title_print").show();
       var printContents = document.getElementById('print_canvas').innerHTML;
       var originalContents = document.body.innerHTML;
       document.body.innerHTML = printContents;
@@ -732,6 +733,11 @@ if (!isset($_SESSION["status"])) {
           $("#reference_number").val(json.data);
         }
       });
+    }
+
+    function generateData() {
+      // alert("test");
+      getEntries();
     }
   </script>
 </body>
