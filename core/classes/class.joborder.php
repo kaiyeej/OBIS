@@ -11,14 +11,36 @@ class JobOrder extends Connection
 
     public function add()
     {
+        $finished_product = $this->inputs['product_id'];
         $form = array(
             $this->name         => $this->clean($this->inputs[$this->name]),
-            'product_id'        => $this->inputs['product_id'],
+            'product_id'        => $finished_product,
             'no_of_batches'     => $this->inputs['no_of_batches'],
             'remarks'           => $this->inputs['remarks'],
             'job_order_date'    => $this->inputs['job_order_date']
         );
-        return $this->insertIfNotExist($this->table, $form);
+        $checker = $this->insertIfNotExist($this->table, $form);
+
+        if($checker){
+            $lastId = $this->mysqli->insert_id;
+            $Formulation = new Formulation();
+            $formulation_id = $Formulation->formulation_id($finished_product);
+            $result = $this->select("tbl_formulation_details", "*", "formulation_id=$formulation_id");
+            while($row = $result->fetch_array()){
+                $Products = new Products;
+                $product_cost = $Products->productCost($row['product_id']);
+                $form_ = array(
+                    $this->pk       => $lastId,
+                    $this->fk_det   => $row['product_id'],
+                    'qty'           => $row['qty'],
+                    'cost'          => $product_cost
+                );
+
+                $this->insert($this->table_detail, $form_);
+            }
+        }
+
+        return $checker;
     }
 
     public function add_detail()
