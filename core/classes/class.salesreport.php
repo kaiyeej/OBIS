@@ -21,6 +21,7 @@ class SalesReport extends Connection
             $Product = new Products;
             $row['customer'] = $Customer->name($row['customer_id']);
             $row['product'] = $Product->name($row['product_id']);
+            $row['total'] = number_format($row['total'], 2);
             $rows[] = $row;
         }
         return $rows;
