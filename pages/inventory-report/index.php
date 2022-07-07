@@ -52,7 +52,7 @@
                     <thead>
                         <tr>
                             <th>Product</th>
-                            <th>Price</th>
+                            <th>Cost</th>
                             <th>Category</th>
                             <th>Quantity</th>
                         </tr>
@@ -90,10 +90,10 @@
                     "data": "product_name"
                 },
                 {
-                    "data": "supplier_price"
+                    "data": "cost"
                 },
                 {
-                    "data": "product_id"
+                    "data": "product_category"
                 },
                 {
                     "data": "qty"
