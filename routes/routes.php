@@ -53,6 +53,10 @@ $routes = array(
         'class_name' => 'JobOrder',
         'has_detail' => 1
     ),
+    "sales-report" => array(
+        'class_name' => 'SalesReport',
+        'has_detail' => 1
+    ),
 
 
 );
