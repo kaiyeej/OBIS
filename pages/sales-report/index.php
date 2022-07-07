@@ -2,7 +2,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Inventory Report</h3>
+                <h3>Sales Report</h3>
                 <p class="text-subtitle text-muted">Generate reports here</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -43,7 +43,7 @@
             <div class="card-body" id="print_canvas">
                 <div id="title_print" style="display: none;">
                     <center>
-                        <h4><strong>Inventory Report</strong></h4>
+                        <h4><strong>Sales Report</strong></h4>
                     </center>
                     <br>
                 </div>
@@ -51,14 +51,20 @@
                 <table class="display expandable-table" id="dt_entries" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Customer</th>
                             <th>Product</th>
-                            <th>Price</th>
-                            <th>Category</th>
                             <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Amount</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" style="text-align:right;">Total:</td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -78,6 +84,34 @@
             "paging": false,
             "info": false,
             "processing": true,
+            "footerCallback": function(row, data, start, end, display) {
+                var api = this.api(),
+                    data;
+                var intVal = function(i) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '') * 1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                total = api
+                    .column(4)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+                pageTotal = api
+                    .column(4, {
+                        page: 'current'
+                    })
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+                $(api.column(4).footer()).html(
+                    "<strong>Grand Total: <span>&#8369;</span> " + this.fnSettings().fnFormatNumber(parseFloat(parseFloat(pageTotal).toFixed(2))) + "</strong>"
+                );
+            },
             "ajax": {
                 "url": "controllers/sql.php?c=" + route_settings.class_name + "&q=generate_report",
                 "dataSrc": "data",
@@ -87,17 +121,22 @@
                 }
             },
             "columns": [{
-                    "data": "product_name"
+                    "data": "customer"
                 },
                 {
-                    "data": "supplier_price"
-                },
-                {
-                    "data": "product_id"
+                    "data": "product"
                 },
                 {
                     "data": "qty"
+                },
+
+                {
+                    "data": "price"
+                },
+                {
+                    "data": "total"
                 }
+
             ]
         });
     }

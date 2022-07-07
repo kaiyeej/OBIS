@@ -10,14 +10,12 @@ class InventoryReport extends Connection
         $start_date = $_REQUEST['start_date'];
         $end_date = $_REQUEST['end_date'];
         $ProductCategories = new ProductCategories();
-        $result = $this->select($this->table, "*", "DATE(date_added) BETWEEN '$start_date' AND '$end_date'");
+        $Products = new Products();
+        $result = $this->select("tbl_purchase_order as a, tbl_purchase_order_details as b", "b.qty, b.supplier_price, b.product_id", "a.po_date BETWEEN '$start_date' AND '$end_date' AND a.po_id=b.po_id AND a.status='F'");
         $rows = array();
 
         while ($row = $result->fetch_assoc()) {
-
-            $po = $this->getQuantityByDate($start_date, $end_date, $row['product_id']);
-            $row['product_category'] = $ProductCategories->name($row['product_category_id']);
-            $row['qty'] = $po['qty'];
+            $row['product_name'] = $Products->name($row['product_id']);
             $rows[] = $row;
         }
         return $rows;
