@@ -51,10 +51,8 @@
                 <table class="display expandable-table" id="dt_entries" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Customer</th>
                             <th>Product</th>
                             <th>Quantity</th>
-                            <th>Price</th>
                             <th>Amount</th>
                         </tr>
                     </thead>
@@ -62,7 +60,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5" style="text-align:right;">Total:</td>
+                            <td colspan="3" style="text-align:right;">Grand Total: 0</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -95,20 +93,20 @@
                 };
 
                 total = api
-                    .column(4)
+                    .column(2)
                     .data()
                     .reduce(function(a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
                 pageTotal = api
-                    .column(4, {
+                    .column(2, {
                         page: 'current'
                     })
                     .data()
                     .reduce(function(a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
-                $(api.column(4).footer()).html(
+                $(api.column(2).footer()).html(
                     "<strong>Grand Total: <span>&#8369;</span> " + this.fnSettings().fnFormatNumber(parseFloat(parseFloat(pageTotal).toFixed(2))) + "</strong>"
                 );
             },
@@ -121,17 +119,10 @@
                 }
             },
             "columns": [{
-                    "data": "customer"
-                },
-                {
                     "data": "product"
                 },
                 {
                     "data": "qty"
-                },
-
-                {
-                    "data": "price"
                 },
                 {
                     "data": "total"
