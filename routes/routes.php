@@ -57,6 +57,10 @@ $routes = array(
         'class_name' => 'SalesReport',
         'has_detail' => 1
     ),
+    "users" => array(
+        'class_name' => 'Users',
+        'has_detail' => 0
+    ),
 
 
 );

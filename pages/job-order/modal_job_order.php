@@ -6,7 +6,7 @@
                     <h4 class="modal-title" id="modalLabel"><span class='fa fa-pen'></span> Add Entry</h4>
                 </div>
                 <div class="modal-body" style="padding: 15px;">
-                    <input type="hidden" id="hidden_id" name="input[formulation_id]">
+                    <input type="hidden" id="hidden_id" name="input[job_order_id]">
 
                     <div class="form-group row">
                         <div class="col">
@@ -76,7 +76,6 @@
                     <div class="col-sm-12" id="col-item">
                         <form method='POST' id='frm_submit_2'>
                             <input type="hidden" id="hidden_id_2" name="input[job_order_id]">
-
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <label><strong>Product</strong></label>

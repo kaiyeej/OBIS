@@ -95,13 +95,6 @@ class Formulation extends Connection
         return $row[$this->name];
     }
 
-    public function formulation_id($primary_id)
-    {
-        $result = $this->select($this->table, 'formulation_id', "product_id = '$primary_id'");
-        $row = $result->fetch_assoc();
-        return $row[$this->name];
-    }
-
     public function status($primary_id)
     {
         $result = $this->select($this->table, $this->status, "$this->pk = '$primary_id'");
@@ -158,5 +151,12 @@ class Formulation extends Connection
 
 
         return $this->schemaCreator($tables);
+    }
+
+    public function formulation_id($primary_id)
+    {
+        $result = $this->select($this->table, 'formulation_id', "product_id = '$primary_id'");
+        $row = $result->fetch_assoc();
+        return $row['formulation_id'];
     }
 }

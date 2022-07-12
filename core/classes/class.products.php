@@ -10,10 +10,10 @@ class Products extends Connection
         $form = array(
             $this->name             => $this->clean($this->inputs[$this->name]),
             'product_price'         => $this->inputs['product_price'],
-            'product_img'           => 'default.png',
             'product_category_id'   => $this->inputs['product_category_id'],
             'remarks'               => $this->inputs['remarks'],
-            'product_code'          => $this->inputs['product_code']
+            'product_code'          => $this->inputs['product_code'],
+            'is_package'            => $this->inputs['is_package'],
         );
         return $this->insertIfNotExist($this->table, $form, "product_code=" . $this->inputs['product_code'] . " ");
     }
@@ -24,7 +24,8 @@ class Products extends Connection
             $this->name             => $this->clean($this->inputs[$this->name]),
             'product_category_id'   => $this->inputs['product_category_id'],
             'product_price'         => $this->inputs['product_price'],
-            'remarks'               => $this->inputs['remarks']
+            'remarks'               => $this->inputs['remarks'],
+            'is_package'            => $this->inputs['is_package']
         );
         return $this->updateIfNotExist($this->table, $form);
     }
@@ -37,6 +38,7 @@ class Products extends Connection
         $result = $this->select($this->table, '*', $param);
         while ($row = $result->fetch_assoc()) {
             $row['product_category'] = $ProductCategories->name($row['product_category_id']);
+            $row['finished_product_id'] = $row['product_id'];
             $rows[] = $row;
         }
         return $rows;

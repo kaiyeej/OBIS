@@ -87,9 +87,25 @@ class PurchaseOrder extends Connection
     public function finish()
     {
         $primary_id = $this->inputs['id'];
+        $Inv = new InventoryReport();
+        $Product = new Products();
+        $result = $this->select($this->table_detail, '*', "$this->pk = '$primary_id'");
+        while($row = $result->fetch_array()){
+            $current_qty = $Inv->currentQty($row['product_id']);
+            $current_cost = $Product->productCost($row['product_id']);
+            $new_cost = (($current_qty*$current_cost)+($row['qty']*$row['supplier_price']))/($current_qty+$row['qty']);
+
+            $form_ = array(
+                'product_cost' => $new_cost,
+            );
+            
+            $this->update('tbl_products', $form_, "product_id='$row[product_id]'");
+        }
+
         $form = array(
             'status' => 'F',
         );
+
         return $this->update($this->table, $form, "$this->pk = '$primary_id'");
     }
 

@@ -109,6 +109,16 @@ $page = str_replace("/obis/", "", $request);
             </a>
         </li>
 
+
+        <li class="sidebar-title">Security</li>
+        
+        <li class="sidebar-item <?= $page == 'users' ? 'active' : '' ?>">
+            <a href="./users" class='sidebar-link'>
+                <i class="bi bi-person-plus-fill"></i>
+                <span>Users</span>
+            </a>
+        </li>
+
         
     </ul>
 </div>

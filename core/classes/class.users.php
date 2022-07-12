@@ -17,6 +17,7 @@ class Users extends Connection
             $form = array(
                 'user_fullname' => $this->inputs['user_fullname'],
                 'user_category' => $this->inputs['user_category'],
+                'date_added' => $this->getCurrentDate(),
                 'username' => $this->inputs['username'],
                 'password' => md5('$pass')
             );
@@ -54,7 +55,7 @@ class Users extends Connection
         $rows = array();
         $result = $this->select($this->table);
         while ($row = $result->fetch_assoc()) {
-            $row['category'] = ($row['user_category'] == "A" ? "Admin" : "Cashier");
+            $row['category'] = ($row['user_category'] == "A" ? "Admin" : "Staff" );
             $rows[] = $row;
         }
         return $rows;

@@ -421,7 +421,9 @@ if (!isset($_SESSION["status"])) {
             this.value = json[id_name];
           });
 
-          $(".select2").select2().trigger('change');
+          $(".select2").select2({
+            dropdownParent: $("#modalEntry")
+          });
 
           $("#modalLabel").html("<span class='fa fa-pen'></span> Update Entry");
           $("#modalEntry").modal('show');
@@ -574,7 +576,9 @@ if (!isset($_SESSION["status"])) {
             success_add();
             var id = $("#hidden_id_2").val();
             document.getElementById("frm_submit_2").reset();
-            $('.select2').select2().trigger('change');
+            $(".select2").select2({
+              dropdownParent: $("#modalEntry2")
+            });
             $("#hidden_id_2").val(id);
           } else if (json.data == 2) {
             entry_already_exists();

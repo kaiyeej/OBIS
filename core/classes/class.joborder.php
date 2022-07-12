@@ -19,10 +19,10 @@ class JobOrder extends Connection
             'remarks'           => $this->inputs['remarks'],
             'job_order_date'    => $this->inputs['job_order_date']
         );
-        $checker = $this->insertIfNotExist($this->table, $form);
+        $lastId = $this->insertIfNotExist($this->table, $form, '', 'Y');
+        
 
-        if($checker){
-            $lastId = $this->mysqli->insert_id;
+        if($lastId > 0){
             $Formulation = new Formulation();
             $formulation_id = $Formulation->formulation_id($finished_product);
             $result = $this->select("tbl_formulation_details", "*", "formulation_id=$formulation_id");
@@ -32,7 +32,7 @@ class JobOrder extends Connection
                 $form_ = array(
                     $this->pk       => $lastId,
                     $this->fk_det   => $row['product_id'],
-                    'qty'           => $row['qty'],
+                    'qty'           => $row['qty'] * $this->inputs['no_of_batches'],
                     'cost'          => $product_cost
                 );
 
@@ -40,7 +40,7 @@ class JobOrder extends Connection
             }
         }
 
-        return $checker;
+        return $lastId;
     }
 
     public function add_detail()
@@ -62,11 +62,11 @@ class JobOrder extends Connection
     public function edit()
     {
         $form = array(
-            $this->name             => $this->clean($this->inputs[$this->name]),
-            'product_category_id'   => $this->inputs['product_category_id'],
-            'no_of_batches'         => $this->inputs['no_of_batches'],
-            'remarks'               => $this->inputs['remarks'],
-            'job_order_date'        => $this->inputs['job_order_date']
+            $this->name         => $this->clean($this->inputs[$this->name]),
+            'product_id'        => $finished_product,
+            'no_of_batches'     => $this->inputs['no_of_batches'],
+            'remarks'           => $this->inputs['remarks'],
+            'job_order_date'    => $this->inputs['job_order_date']
         );
         return $this->updateIfNotExist($this->table, $form);
     }

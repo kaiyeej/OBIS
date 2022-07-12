@@ -27,7 +27,19 @@
                         <div class="col">
                             <label><strong>Category</strong></label>
                             <div>
-                                <select class="form-control input-item" name="input[product_category_id]" id="product_category_id" required>
+                                <select class="form-control input-item select2" name="input[product_category_id]" id="product_category_id" required>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label><strong>Type</strong></label>
+                            <div>
+                                <select class="form-control input-item select2" name="input[is_package]" id="is_package" required>
+                                    <option value="">Please Select:</option>
+                                    <option value="1">Finished Product</option>
+                                    <option value="0">Ingredient</option>
                                 </select>
                             </div>
                         </div>

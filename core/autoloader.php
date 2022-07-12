@@ -17,4 +17,5 @@ $classes = array(
     'JobOrder'          => $pre_class . 'joborder.php',
     'Formulation'       => $pre_class . 'formulation.php',
     'SalesReport'       => $pre_class . 'salesreport.php',
+    'Users'             => $pre_class . 'users.php',
 );

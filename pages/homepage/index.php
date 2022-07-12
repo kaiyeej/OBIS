@@ -99,7 +99,7 @@
                          </div>
                          <div class="ms-3 name">
                              <h5 class="font-bold"><?= $_SESSION['user_fullname'] ?></h5>
-                             <h6 class="text-muted mb-0">role nadi</h6>
+                             <h6 class="text-muted mb-0"><?= $_SESSION['user_category'] == "A" ? "Admin" : "Staff" ?></h6>
                          </div>
                      </div>
                  </div>
