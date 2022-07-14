@@ -20,13 +20,13 @@ class JobOrder extends Connection
             'job_order_date'    => $this->inputs['job_order_date']
         );
         $lastId = $this->insertIfNotExist($this->table, $form, '', 'Y');
-        
 
-        if($lastId > 0){
+
+        if ($lastId > 0) {
             $Formulation = new Formulation();
             $formulation_id = $Formulation->formulation_id($finished_product);
             $result = $this->select("tbl_formulation_details", "*", "formulation_id=$formulation_id");
-            while($row = $result->fetch_array()){
+            while ($row = $result->fetch_array()) {
                 $Products = new Products;
                 $product_cost = $Products->productCost($row['product_id']);
                 $form_ = array(
@@ -192,5 +192,28 @@ class JobOrder extends Connection
 
 
         return $this->schemaCreator($tables);
+    }
+    public function getJobOrderHeader()
+    {
+        $Products = new Products;
+        $id = $_POST['id'];
+        $result = $this->select($this->table, "*", "$this->pk='$id'");
+        $row = $result->fetch_assoc();
+        $row['product_name'] = $Products->name($row['product_id']);
+        $row['jo_date'] = date("F j, Y", strtotime($row['job_order_date']));
+        $rows[] = $row;
+        return $rows;
+    }
+    public function getJobOrderDetails()
+    {
+        $id = $_POST['id'];
+        $Products = new Products;
+        $rows = array();
+        $result = $this->select($this->table_detail, "*", "$this->pk='$id'");
+        while ($row = $result->fetch_assoc()) {
+            $row['product_name'] = $Products->name($row['product_id']);
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }

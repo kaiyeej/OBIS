@@ -1,4 +1,3 @@
-
 <style>
     .select2-container--default .select2-selection--single {
         background-color: #fff !important;
@@ -58,19 +57,19 @@
 
             <div class="card-body">
                 <table class="display expandable-table" id="dt_entries" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th><input type='checkbox' onchange="checkAll(this, 'dt_id')"></th>
-                                <th></th>
-                                <th>Date</th>
-                                <th>Reference</th>
-                                <th>Product</th>
-                                <th>No. of Batches</th>
-                                <th>Status</th>
-                                <th>Date Added</th>
-                                <th>Date Modified</th>
-                            </tr>
-                        </thead>
+                    <thead>
+                        <tr>
+                            <th><input type='checkbox' onchange="checkAll(this, 'dt_id')"></th>
+                            <th></th>
+                            <th>Date</th>
+                            <th>Reference</th>
+                            <th>Product</th>
+                            <th>No. of Batches</th>
+                            <th>Status</th>
+                            <th>Date Added</th>
+                            <th>Date Modified</th>
+                        </tr>
+                    </thead>
                     <tbody>
                     </tbody>
                 </table>
@@ -79,7 +78,55 @@
     </section>
 </div>
 <?php require_once 'modal_job_order.php'; ?>
+<?php require_once 'modal_print.php'; ?>
 <script type="text/javascript">
+    function printRecord(id) {
+        $("#tb_id").html("");
+        $("#modalPrint").modal('show');
+        $.ajax({
+            type: 'POST',
+            url: "controllers/sql.php?c=" + route_settings.class_name + "&q=getJobOrderHeader",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                var json = JSON.parse(data);
+                // // console.log(json.data[0].customer_name);
+                $("#product_name_span").html(json.data[0].product_name);
+                $("#reference_span").html(json.data[0].reference_number);
+                $("#no_of_batches_span").html(json.data[0].no_of_batches);
+                $("#date_span").html(json.data[0].jo_date);
+                getJobOrderDetails(json.data[0].job_order_id);
+            }
+        });
+    }
+
+    function getJobOrderDetails(id) {
+
+        $.ajax({
+            type: 'POST',
+            url: "controllers/sql.php?c=" + route_settings.class_name + "&q=getJobOrderDetails",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                var json = JSON.parse(data);
+                var arr_count = json.data.length;
+                var i = 0;
+                while (i < arr_count) {
+                    console.log(json.data[i]);
+                    $("#tb_id").append('<tr>' +
+                        '<td>' + json.data[i].product_name + '</td>' +
+                        '<td>' + json.data[i].qty + '</td>' +
+                        '<td>' + json.data[i].cost + '</td>' +
+                        '</tr>');
+                    i++;
+                }
+
+            }
+        });
+    }
+
     function getEntries() {
         $("#dt_entries").DataTable().destroy();
         $("#dt_entries").DataTable({
@@ -105,7 +152,7 @@
                             '<button class="btn btn-primary dropdown-toggle me-1 btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i>' +
                             '</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
                             '<a class="dropdown-item" href="#" onclick="getEntryDetails2(' + row.job_order_id + ')"><span class="bi bi-pencil-square"></span> Edit Record</a>' +
-                            //'<a class="dropdown-item" href="#" style="' + display + '" onclick="printRecord(' + row.job_order_id + ')"><span class="fa fa-print"></span> Print Record</a>' +
+                            '<a class="dropdown-item" href="#" style="' + display + '" onclick="printRecord(' + row.job_order_id + ')"><span class="fa fa-print"></span> Print Record</a>' +
                             '</div>';
                     }
                 },
@@ -170,15 +217,15 @@
         });
     }
 
-    function getProductCost(){
+    function getProductCost() {
         var id = $("#product_id").val();
         $.ajax({
             type: "POST",
             url: "controllers/sql.php?c=" + route_settings.class_name + "&q=view",
             data: {
-            input: {
-                id: id
-            }
+                input: {
+                    id: id
+                }
             },
             success: function(data) {
                 var jsonParse = JSON.parse(data);
@@ -188,8 +235,7 @@
         });
     }
 
-    $('#modalEntry').on('shown.bs.modal', function (e) {
-    })
+    $('#modalEntry').on('shown.bs.modal', function(e) {})
 
     $(document).ready(function() {
         schema();

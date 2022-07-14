@@ -10,18 +10,15 @@
                      <center><strong>
                              <h4>Order Biling and Inventory System</h4>
                          </strong></center>
-                     <center><strong>Supplier Name: </strong><span id="supplier_name_span"></span></center>
-                     <center><strong>Reference Number: </strong><span id="reference_number_span"></span></center>
-                     <center><strong>Date: </strong><span id="po_date_span"></span></center>
+                     <center><strong>Product Name: </strong><span id="reference_span"></span></center>
+                     <center><strong>Date: </strong><span id="date_span"></span></center>
                      <center><strong>Remarks: </strong><span id="remarks_span"></span></center>
                      <div class="table-responsive">
                          <table class="table table-bordered mb-0" id="tbl_sales_details">
                              <thead>
                                  <tr>
-                                     <th>PRODUCT</th>
-                                     <th>QUANTITY</th>
-                                     <th>PRICE</th>
-                                     <th>AMOUNT</th>
+                                     <th>PRODUCT NAME</th>
+                                     <th>QTY</th>
 
                                  </tr>
                              </thead>

@@ -140,7 +140,7 @@ class Formulation extends Connection
             'name'      => $this->table_detail,
             'primary'   => $this->pk2,
             'fields' => array(
-                    $this->metadata($this->pk2, 'int', 11, 'NOT NULL', '', 'AUTO_INCREMENT'),
+                $this->metadata($this->pk2, 'int', 11, 'NOT NULL', '', 'AUTO_INCREMENT'),
                 $this->metadata($this->pk, 'int', 11, 'NOT NULL'),
                 $this->metadata('product_id', 'int', 11),
                 $this->metadata('qty', 'decimal', '7,2'),
@@ -158,5 +158,28 @@ class Formulation extends Connection
         $result = $this->select($this->table, 'formulation_id', "product_id = '$primary_id'");
         $row = $result->fetch_assoc();
         return $row['formulation_id'];
+    }
+    public function getFormulationHeader()
+    {
+        $Products = new Products;
+        $id = $_POST['id'];
+        $result = $this->select($this->table, "*", "$this->pk='$id'");
+        $row = $result->fetch_assoc();
+        $row['product_name'] = $Products->name($row['product_id']);
+        $row['date_added'] = date("F j, Y", strtotime($row['date_added']));
+        $rows[] = $row;
+        return $rows;
+    }
+    public function getFormulationDetails()
+    {
+        $id = $_POST['id'];
+        $Products = new Products;
+        $rows = array();
+        $result = $this->select($this->table_detail, "*", "$this->pk='$id'");
+        while ($row = $result->fetch_assoc()) {
+            $row['product_name'] = $Products->name($row['product_id']);
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }

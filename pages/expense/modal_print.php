@@ -2,7 +2,7 @@
      <div class="modal-dialog  modal-lg" style="margin-top: 50px;" role="document">
          <div class="modal-content">
              <div class="modal-header">
-                 <h4 class="modal-title" id="modalLabel"><span class='fa fa-pen'></span> Print Record</h4>
+                 <h4 class="modal-title" id="modalLabel"><span class='fa fa-print'></span> Print Record</h4>
              </div>
              <div class="modal-body" style="padding: 15px;">
                  <input type="hidden" id="hidden_id_sales" name="input[sales_id]">

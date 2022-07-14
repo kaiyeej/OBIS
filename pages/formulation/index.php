@@ -55,7 +55,53 @@
     </section>
 </div>
 <?php include 'modal_formulation.php' ?>
+<?php require_once 'modal_print.php'; ?>
 <script type="text/javascript">
+    function printRecord(id) {
+        $("#tb_id").html("");
+        $("#modalPrint").modal('show');
+        $.ajax({
+            type: 'POST',
+            url: "controllers/sql.php?c=" + route_settings.class_name + "&q=getFormulationHeader",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                var json = JSON.parse(data);
+                // // console.log(json.data[0].customer_name);
+                $("#reference_span").html(json.data[0].product_name);
+                $("#date_span").html(json.data[0].date_added);
+                $("#remarks_span").html(json.data[0].remarks);
+                getFormulationDetails(json.data[0].formulation_id);
+            }
+        });
+    }
+
+    function getFormulationDetails(id) {
+
+        $.ajax({
+            type: 'POST',
+            url: "controllers/sql.php?c=" + route_settings.class_name + "&q=getFormulationDetails",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                var json = JSON.parse(data);
+                var arr_count = json.data.length;
+                var i = 0;
+                while (i < arr_count) {
+                    console.log(json.data[i]);
+                    $("#tb_id").append('<tr>' +
+                        '<td>' + json.data[i].product_name + '</td>' +
+                        '<td>' + json.data[i].qty + '</td>' +
+                        '</tr>');
+                    i++;
+                }
+
+            }
+        });
+    }
+
     function getEntries() {
         $("#dt_entries").DataTable().destroy();
         $("#dt_entries").DataTable({
@@ -76,7 +122,7 @@
                             '<button class="btn btn-primary dropdown-toggle me-1 btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i>' +
                             '</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
                             '<a class="dropdown-item" href="#" onclick="getEntryDetails2(' + row.formulation_id + ')"><span class="bi bi-pencil-square"></span> Edit Record</a>' +
-                            //'<a class="dropdown-item" href="#" onclick="printRecord(' + row.formulation_id + ')"><span class="fa fa-print"></span> Print Record</a>' +
+                            '<a class="dropdown-item" href="#" onclick="printRecord(' + row.formulation_id + ')"><span class="fa fa-print"></span> Print Record</a>' +
                             '</div>';
                     }
                 },
@@ -131,6 +177,6 @@
         schema();
         getEntries();
         getSelectOption('Products', 'product_id', 'product_name', "is_package = 1");
-        getSelectOption('Products', 'product_id_2', 'product_name','',[],'','Please Select',1);
+        getSelectOption('Products', 'product_id_2', 'product_name', '', [], '', 'Please Select', 1);
     });
 </script>
