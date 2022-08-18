@@ -8,7 +8,7 @@ $page = str_replace("/obis/", "", $request);
         
         <li
             class="sidebar-item <?= $page == "" || $page == "homepage" || $page == null ? 'active' : '' ?> ">
-            <a href="./homepage" class='sidebar-link'>
+            <a href="" class='sidebar-link'>
                 <i class="bi bi-grid-fill"></i>
                 <span>Dashboard</span>
             </a>
@@ -75,6 +75,13 @@ $page = str_replace("/obis/", "", $request);
             <a href="./job-order" class='sidebar-link'>
                 <i class="bi bi-list-columns-reverse"></i>
                 <span>Job-order</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item <?= $page == 'queuing' ? 'active' : '' ?>">
+            <a href="./queuing" class='sidebar-link'>
+                <i class="bi bi-123"></i>
+                <span>Queuing</span>
             </a>
         </li>
 

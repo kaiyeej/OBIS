@@ -71,9 +71,12 @@ class Sales extends Connection
 
     public function finish()
     {
+        $result = $this->select($this->table, "MAX(`q_num`)", "");
+        $q_num = $result->fetch_array();
         $primary_id = $this->inputs['id'];
         $form = array(
             'status' => 'F',
+            'q_num' => $q_num[0]+1
         );
         return $this->update($this->table, $form, "$this->pk = '$primary_id'");
     }

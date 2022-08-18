@@ -61,7 +61,11 @@ $routes = array(
         'class_name' => 'Users',
         'has_detail' => 0
     ),
-
+    "queuing" => array(
+        'class_name' => 'Queuing',
+        'has_detail' => 0
+    ),
+    
 
 );
 /** END SET ROUTES */

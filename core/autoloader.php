@@ -18,4 +18,5 @@ $classes = array(
     'Formulation'       => $pre_class . 'formulation.php',
     'SalesReport'       => $pre_class . 'salesreport.php',
     'Users'             => $pre_class . 'users.php',
+    'Queuing'           => $pre_class . 'queuing.php',
 );

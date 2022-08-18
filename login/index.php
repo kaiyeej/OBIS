@@ -58,11 +58,9 @@ if (isset($_SESSION["status"])) {
                         </div> -->
                         <button button="submit" style="background-color: #ad6a1c; border-color: #ad6a1c;" class="btn btn-primary btn-block btn-lg shadow-lg mt-2" id="btn_submit">Log in</button>
                     </form>
-                    <!-- <div class="text-center mt-5 text-lg fs-4">
-                        <p class="text-gray-600">Don't have an account? <a href="auth-register.html" class="font-bold">Sign
-                                up</a>.</p>
-                        <p><a class="font-bold" href="auth-forgot-password.html">Forgot password?</a>.</p>
-                    </div> -->
+                    <div class="text-center mt-5 text-lg fs-4">
+                        <p><a class="font-bold" href="/obis/queuing-page/index.php">Queuing System</a>.</p>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-7 d-none d-lg-block">
@@ -106,8 +104,6 @@ if (isset($_SESSION["status"])) {
 
                 // var json = JSON.parse(data);
                 console.log(json.data);
-
-
 
             }
         });

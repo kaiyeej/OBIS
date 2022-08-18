@@ -71,8 +71,14 @@ class Products extends Connection
         return $row[$this->pk];
     }
 
-    public function productPrice($primary_id)
+    public function productPrice($id = null)
     {
+        if($id == null){
+            $primary_id = $_POST['id'];
+        }else{
+            $primary_id = $id;
+        }
+
         $fetch = $this->select($this->table, "product_price", "$this->pk = '$primary_id'");
         $row = $fetch->fetch_assoc();
         return $row['product_price'];

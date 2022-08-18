@@ -81,6 +81,7 @@ $Sales = new Sales;
 </div>
 <?php require_once 'modal_sales.php'; ?>
 <?php require_once 'modal_print.php'; ?>
+<?php require_once 'modal_print_queuing.php'; ?>
 <script type="text/javascript">
     function printRecord(id) {
         $("#tb_id").html("");
@@ -98,6 +99,24 @@ $Sales = new Sales;
                 $("#reference_number_span").html(json.data[0].reference_number);
                 $("#sales_date_span").html(json.data[0].sales_date_mod);
                 getSalesDetails(json.data[0].sales_id);
+            }
+        });
+    }
+
+    function printQueuing(id) {
+        $("#modalQueuing").modal('show');
+        $.ajax({
+            type: 'POST',
+            url: "controllers/sql.php?c=" + route_settings.class_name + "&q=getSalesHeader",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                var json = JSON.parse(data);
+                // console.log(json.data[0].customer_name);
+                $(".reference_number_span").html(json.data[0].reference_number);
+                $(".sales_date_span").html(json.data[0].date_last_modified);
+                $(".sales_q_num").html(json.data[0].q_num);
             }
         });
     }
@@ -129,6 +148,10 @@ $Sales = new Sales;
         });
     }
 
+    function conPrintQueuing(){
+        
+    }
+
 
     function getEntries() {
         $("#dt_entries").DataTable().destroy();
@@ -156,6 +179,7 @@ $Sales = new Sales;
                             '</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
                             '<a class="dropdown-item" href="#" onclick="getEntryDetails2(' + row.sales_id + ')"><span class="bi bi-pencil-square"></span> Edit Record</a>' +
                             '<a class="dropdown-item" href="#" style="' + display + '" onclick="printRecord(' + row.sales_id + ')"><span class="fa fa-print"></span> Print Record</a>' +
+                            '<a class="dropdown-item" href="#" style="' + display + '" onclick="printQueuing(' + row.sales_id + ')"><span class="bi bi-printer-fill"></span> Queuing #</a>' +
                             '</div>';
                     }
                 },
@@ -258,14 +282,21 @@ $Sales = new Sales;
         });
     }
 
-    function fetchProductsByCategory() {
-        var product_category_id = $("#product_category_id").val();
-
-    }
 
     function changeProduct() {
-        var optionSelected = $("#product_id").find('option:selected').attr('product_price');
-        $("#price").val(optionSelected);
+
+        var id = $("#product_id").val();
+        $.ajax({
+            type: 'POST',
+            url: "controllers/sql.php?c=Products&q=productPrice",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                var json = JSON.parse(data);
+                $("#price").val(json.data);
+            }
+        });
     }
 
     $(document).ready(function() {
