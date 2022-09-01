@@ -7,6 +7,8 @@ class Products extends Connection
 
     public function add()
     {
+        $image_name = $_FILES['file']['name'];
+        move_uploaded_file($_FILES['file']['tmp_name'], '../assets/images/products/' . $image_name);
         $form = array(
             $this->name             => $this->clean($this->inputs[$this->name]),
             'product_price'         => $this->inputs['product_price'],
@@ -79,6 +81,14 @@ class Products extends Connection
             $primary_id = $id;
         }
 
+        $fetch = $this->select($this->table, "product_price", "$this->pk = '$primary_id'");
+        $row = $fetch->fetch_assoc();
+        return $row['product_price'];
+    }
+
+    public function getPrice()
+    {
+        $primary_id = $_POST['id'];
         $fetch = $this->select($this->table, "product_price", "$this->pk = '$primary_id'");
         $row = $fetch->fetch_assoc();
         return $row['product_price'];

@@ -39,13 +39,13 @@ if (isset($_SESSION["status"])) {
                     <div id="alert_div"></div>
                     <form method="POST" id="frm_login">
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" name="input[username]" id="username" placeholder="Username">
+                            <input type="text" class="form-control form-control-xl" required name="input[username]" id="username" placeholder="Username">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" name="input[password]" id="password" placeholder="Password">
+                            <input type="password" class="form-control form-control-xl" required name="input[password]" id="password" placeholder="Password">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>

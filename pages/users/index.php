@@ -20,7 +20,7 @@
             <div class="card-header">
                 <div class="btn-group divider divider-right">
                     <div style="float: right">
-                        <a href="#" class="btn btn-primary btn-sm btn-icon-split" onclick="addModal()">
+                        <a href="#" class="btn btn-primary btn-sm btn-icon-split" onclick="addUser()">
                             <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
                             </span>
@@ -57,10 +57,14 @@
 </div>
 <?php require_once 'modal_user.php'; ?>
 <script type="text/javascript">
+     function addUser(){
+        addModal();
+        $("#div_password").show();
+    }
+
     function getUserDetails(id){
         $("#div_password").hide();
         getEntryDetails(id);
-        
     }
     
     function getEntries() {

@@ -1,6 +1,7 @@
 <html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="20">
   <title>BeanBrewing Cafė</title>
 
   <!-- <link rel="stylesheet" href="../assets/css/pages/form-element-select.css"> -->
@@ -8,13 +9,9 @@
   <link rel="stylesheet" href="../assets/css/main/app-dark.css">
   <link rel="shortcut icon" href="../assets/images/logo/logo_beanbrew2.png" type="image/x-icon">
   <link rel="shortcut icon" href="../assets/images/logo/logo_beanbrew2.png" type="image/png">
-
-  <link rel="stylesheet" href="vendors/sweetalert/sweetalert.css">
-
   <link rel="stylesheet" href="../assets/css/shared/iconly.css">
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <link rel="stylesheet" href="../assets/css/pages/fontawesome.css">
-  <link rel="stylesheet" href="../assets/css/pages/datatables.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
   <style>
@@ -165,8 +162,24 @@
         getPending();
         getPreparing();
         getServing();
+        window.onload = maxWindow;
     });
+    
 
+function maxWindow() {
+    window.moveTo(0, 0);
+
+    if (document.all) {
+        top.window.resizeTo(screen.availWidth, screen.availHeight);
+    }
+
+    else if (document.layers || document.getElementById) {
+        if (top.window.outerHeight < screen.availHeight || top.window.outerWidth < screen.availWidth) {
+            top.window.outerHeight = screen.availHeight;
+            top.window.outerWidth = screen.availWidth;
+        }
+    }
+}
     function getPreparing() {
 
         $.ajax({
@@ -185,7 +198,7 @@
                 }else{
                   while (i < arr_count) {
                       console.log(json.data[i]);
-                      $("#canvas_prepaing").append('<div class="col-md-6">' +
+                      $("#canvas_prepaing").append('<div class="col-md-12">' +
                           '<h3><div class="btn-group mb-3" role="group" aria-label="Basic example">' + json.data[i].q_num + '</div></h3>' +
                           '</div>');
                       i++;

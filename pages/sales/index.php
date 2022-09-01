@@ -284,11 +284,10 @@ $Sales = new Sales;
 
 
     function changeProduct() {
-
         var id = $("#product_id").val();
         $.ajax({
             type: 'POST',
-            url: "controllers/sql.php?c=Products&q=productPrice",
+            url: "controllers/sql.php?c=Products&q=getPrice",
             data: {
                 id: id
             },
@@ -298,6 +297,7 @@ $Sales = new Sales;
             }
         });
     }
+
 
     $(document).ready(function() {
 

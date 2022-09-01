@@ -84,7 +84,7 @@
                                     <label><strong>Product</strong></label>
                                     <div>
                                         <select class="form-control form-control-sm select2" name="input[product_id]" id="product_id" onchange="changeProduct()" required>
-                                        </select>
+                                         </select>
                                     </div>
                                 </div><br>
                                 <div class="col">

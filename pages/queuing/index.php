@@ -45,7 +45,7 @@
                                 <div class="card-header" style="background: #9e9e9e;">
                                     <h4 class="card-title">Now Preparing</h4>
                                 </div>
-                                <div id="canvas_prepaing" class="card-body row" style="padding-top: 15px;">
+                                <div id="canvas_prepaing" class="card-body row" style="padding-top: 15px;text-align: center;">
                                     
                                 </div>
                             </div>
@@ -70,6 +70,20 @@
         getPreparing();
         getServing();
     });
+
+    var time = new Date().getTime();
+     $(document.body).bind("mousemove keypress", function(e) {
+         time = new Date().getTime();
+     });
+
+     function refresh() {
+         if(new Date().getTime() - time >= 60000) 
+             window.location.reload(true);
+         else 
+             setTimeout(refresh, 10000);
+     }
+
+     setTimeout(refresh, 10000);
 
     function updateStatus(status,id){
 
@@ -120,7 +134,7 @@
                 var i = 0;
                 while (i < arr_count) {
                     console.log(json.data[i]);
-                    $("#canvas_prepaing").append('<div class="col-md-6">' +
+                    $("#canvas_prepaing").append('<div class="col-md-12">' +
                         '<h3><div class="btn-group mb-3" role="group" aria-label="Basic example">'+'<i class="bi-check-square-fill" onclick=updateStatus("S",'+json.data[i].sales_id+') style="font-size: 20px;color: #3f51b5;"></i>&nbsp;' + json.data[i].q_num + '</div></h3>' +
                         '</div>');
                     i++;
@@ -171,7 +185,7 @@
                 while (i < arr_count) {
                     console.log(json.data[i]);
                     $("#tbl_pending").append('<tr>' +
-                        '<td>' + json.data[i].q_num + '</td>' +
+                        '<td style="font-weight: bolder;">' + json.data[i].q_num + '</td>' +
                         '</tr>');
                     i++;
                 }

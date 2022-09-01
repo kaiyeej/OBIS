@@ -25,22 +25,26 @@ class JobOrder extends Connection
         if ($lastId > 0) {
             $Formulation = new Formulation();
             $formulation_id = $Formulation->formulation_id($finished_product);
-            $result = $this->select("tbl_formulation_details", "*", "formulation_id=$formulation_id");
-            while ($row = $result->fetch_array()) {
-                $Products = new Products;
-                $product_cost = $Products->productCost($row['product_id']);
-                $form_ = array(
-                    $this->pk       => $lastId,
-                    $this->fk_det   => $row['product_id'],
-                    'qty'           => $row['qty'] * $this->inputs['no_of_batches'],
-                    'cost'          => $product_cost
-                );
+            $result = $this->select("tbl_formulation_details", " * ", "formulation_id=$formulation_id");
+            if($result){
+                if($result->num_rows > 0){
+                    while ($row = $result->fetch_array()) {
+                        $Products = new Products;
+                        $product_cost = $Products->productCost($row['product_id']);
+                        $form_ = array(
+                            $this->pk       => $lastId,
+                            $this->fk_det   => $row['product_id'],
+                            'qty'           => $row['qty'] * $this->inputs['no_of_batches'],
+                            'cost'          => $product_cost
+                        );
 
-                $this->insert($this->table_detail, $form_);
+                        $this->insert($this->table_detail, $form_);
+                    }
+                }
             }
         }
-
         return $lastId;
+        
     }
 
     public function add_detail()
@@ -111,6 +115,13 @@ class JobOrder extends Connection
         return $rows;
     }
 
+    public function finished_product($primary_id)
+    {
+        $result = $this->select($this->table, 'product_id', "job_order_id = '$primary_id'");
+        $row = $result->fetch_assoc();
+        return $row['product_id'];
+    }
+
     public function remove()
     {
         $ids = implode(",", $this->inputs['ids']);
@@ -145,6 +156,23 @@ class JobOrder extends Connection
     public function finish()
     {
         $primary_id = $this->inputs['id'];
+        $Inv = new InventoryReport();
+        $Product = new Products();
+        $result = $this->select($this->table_detail, 'sum(cost) total_cost, sum(qty) total_qty', "$this->pk = '$primary_id'");
+        $row = $result->fetch_array();
+
+        $finished_product = $this->finished_product($primary_id);
+
+        $current_qty = $Inv->currentQty($finished_product);
+        $current_cost = $Product->productCost($finished_product);
+        $new_cost = (($current_qty*$current_cost)+($row['total_qty']*$row['total_cost']))/($current_qty+$row['total_qty']);
+
+        $form_ = array(
+            'product_cost' => $new_cost,
+        );
+            
+        $this->update('tbl_products', $form_, "product_id='$finished_product'");
+
         $form = array(
             'status' => 'F',
         );

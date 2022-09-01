@@ -11,17 +11,18 @@ class InventoryReport extends Connection
         $start_date = $_REQUEST['start_date'];
         $end_date = $_REQUEST['end_date'];
         $ProductCategories = new ProductCategories();
-        $Products = new Products();
-        $result = $this->select("tbl_products pro, tbl_purchase_order po, tbl_purchase_order_details pod, tbl_job_orders jo", "SUM(pod.qty) AS qty, pro.product_cost as cost, pro.product_id, pro.product_category_id", "po.po_date BETWEEN '$start_date' AND '$end_date' AND pro.product_id=pod.product_id AND po.`status`='F' GROUP BY pro.product_id, pro.product_category_id");
-        $rows = array();
 
+        $result = $this->select("tbl_products");
+        $rows = array();
         while ($row = $result->fetch_assoc()) {
-            $row['product_name'] = $Products->name($row['product_id']);
+            $row['product_name'] = $row['product_name'];
+            $row['cost'] = $row['product_cost'];
             $row['product_category'] = $ProductCategories->name($row['product_category_id']);
-            $row['qty'] = ($row['qty'] + $this->getJoFinished($row['product_id'])['qty']) - ($this->getJoDetails($row['product_id'])['qty'] + $this->getSales($row['product_id'])['qty']);
+            $row['qty'] = $this->invQty($row['product_id'], $start_date, $end_date);
             $rows[] = $row;
         }
         return $rows;
+
     }
 
     public function getJoFinished($product_id)
@@ -71,7 +72,7 @@ class InventoryReport extends Connection
 
     public function currentQty($product_id){
         //in
-        $fetch_po = $this->select("tbl_purchase_order po, tbl_purchase_order_details pod, tbl_job_orders jo", "SUM(pod.qty)", "pod.product_id='$product_id' AND po.`status`='F' AND po.po_id=pod.po_id");
+        $fetch_po = $this->select("tbl_purchase_order po, tbl_purchase_order_details pod", "SUM(pod.qty)", "pod.product_id='$product_id' AND po.`status`='F' AND po.po_id=pod.po_id");
         $po_qty = $fetch_po->fetch_array();
 
         $fetch_jo_in = $this->select("tbl_job_orders", "SUM(no_of_batches)", "product_id='$product_id' AND `status`='F'");
@@ -90,4 +91,27 @@ class InventoryReport extends Connection
 
         return $in_qty-$out_qty;
     }
+
+    public function invQty($product_id, $start_date, $end_date){
+        //in
+        $fetch_po = $this->select("tbl_purchase_order po, tbl_purchase_order_details pod", "SUM(pod.qty)", "pod.product_id='$product_id' AND po.`status`='F' AND po.po_id=pod.po_id AND po.po_date BETWEEN '$start_date' AND '$end_date'");
+        $po_qty = $fetch_po->fetch_array();
+
+        $fetch_jo_in = $this->select("tbl_job_orders", "SUM(no_of_batches)", "product_id='$product_id' AND `status`='F' AND job_order_date BETWEEN '$start_date' AND '$end_date'");
+        $jo_in_qty = $fetch_jo_in->fetch_array();
+
+        $in_qty = $po_qty[0]+$jo_in_qty[0];
+
+        //out
+        $fetch_sales = $this->select("tbl_sales sh, tbl_sales_details sd", "SUM(sd.qty)", "sd.product_id='$product_id' AND sh.sales_id=sd.sales_id AND sh.`status`='F' AND sh.sales_date BETWEEN '$start_date' AND '$end_date'");
+        $sales_qty = $fetch_sales->fetch_array();
+
+        $fetch_jo_out = $this->select("tbl_job_orders jo, tbl_job_order_details as jd", "SUM(jd.qty)", "jd.product_id='$product_id' AND jo.status='F' AND jo.job_order_id=jd.job_order_id AND jo.job_order_date BETWEEN '$start_date' AND '$end_date'");
+        $jo_out_qty = $fetch_jo_out->fetch_array();
+        
+        $out_qty = $sales_qty[0]+$jo_out_qty[0];
+
+        return $in_qty-$out_qty;
+    }
+    
 }
