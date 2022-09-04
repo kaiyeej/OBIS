@@ -64,6 +64,9 @@ $routes = array(
     "queuing" => array(
         'class_name' => 'Queuing',
         'has_detail' => 0
+    ),"profile" => array(
+        'class_name' => 'Profile',
+        'has_detail' => 0
     ),
     
 

@@ -1,3 +1,9 @@
+ <style>
+     #profile_card:hover {
+         cursor: pointer;
+         border: 1px solid #ad6a1c;
+     }
+ </style>
  <div class="page-heading">
      <h3>Dashboard</h3>
  </div>
@@ -91,7 +97,7 @@
              </div>
          </div>
          <div class="col-12 col-lg-3">
-             <div class="card">
+             <div class="card" id="profile_card" onclick="profile()">
                  <div class="card-body py-4 px-5">
                      <div class="d-flex align-items-center">
                          <div class="avatar avatar-xl">
@@ -121,6 +127,9 @@
      salesGraph();
      graphByExpense();
 
+     function profile() {
+         window.location = "./profile";
+     }
 
      function graphByExpense() {
          $.getJSON("controllers/sql.php?c=Homepage&q=expenses_graph", function(data) {

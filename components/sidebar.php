@@ -5,25 +5,24 @@ $page = str_replace("/obis/", "", $request);
 <div class="sidebar-menu">
     <ul class="menu">
         <li class="sidebar-title">Menu</li>
-        
-        <li
-            class="sidebar-item <?= $page == "" || $page == "homepage" || $page == null ? 'active' : '' ?> ">
-            <a href="" class='sidebar-link'>
+
+        <li class="sidebar-item <?= $page == "" || $page == "homepage" || $page == null ? 'active' : '' ?> ">
+            <a href="./homepage" class='sidebar-link'>
                 <i class="bi bi-grid-fill"></i>
                 <span>Dashboard</span>
             </a>
         </li>
-        
+
 
         <li class="sidebar-title">Master Data</li>
-        
+
         <li class="sidebar-item <?= $page == 'customers' ? 'active' : '' ?>">
             <a href="./customers" class='sidebar-link'>
                 <i class="bi bi-person-lines-fill"></i>
                 <span>Customers</span>
             </a>
         </li>
-       
+
         <li class="sidebar-item <?= $page == 'expense-category' ? 'active' : '' ?>">
             <a href="./expense-category" class='sidebar-link'>
                 <i class="bi bi-card-list"></i>
@@ -45,7 +44,7 @@ $page = str_replace("/obis/", "", $request);
             </a>
         </li>
 
-        
+
         <li class="sidebar-item <?= $page == 'products' || $page == 'product-categories' ? 'active' : '' ?>  has-sub">
             <a href="#" class='sidebar-link'>
                 <i class="bi bi-boxes"></i>
@@ -60,8 +59,8 @@ $page = str_replace("/obis/", "", $request);
                 </li>
             </ul>
         </li>
-        
-        
+
+
         <li class="sidebar-title">Transactions</li>
 
         <li class="sidebar-item <?= $page == 'expense' ? 'active' : '' ?>">
@@ -101,7 +100,7 @@ $page = str_replace("/obis/", "", $request);
 
 
         <li class="sidebar-title">Reports</li>
-        
+
         <li class="sidebar-item <?= $page == 'inventory-report' ? 'active' : '' ?>">
             <a href="./inventory-report" class='sidebar-link'>
                 <i class="bi bi-bar-chart-steps"></i>
@@ -118,7 +117,7 @@ $page = str_replace("/obis/", "", $request);
 
 
         <li class="sidebar-title">Security</li>
-        
+
         <li class="sidebar-item <?= $page == 'users' ? 'active' : '' ?>">
             <a href="./users" class='sidebar-link'>
                 <i class="bi bi-person-plus-fill"></i>
@@ -126,6 +125,6 @@ $page = str_replace("/obis/", "", $request);
             </a>
         </li>
 
-        
+
     </ul>
 </div>
