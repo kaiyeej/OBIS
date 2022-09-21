@@ -333,9 +333,6 @@ if (!isset($_SESSION["status"])) {
             }, 2000);
 
           }
-
-
-
         }
       });
 
