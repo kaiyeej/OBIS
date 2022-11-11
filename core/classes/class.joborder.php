@@ -64,7 +64,8 @@ class JobOrder extends Connection
     }
 
     public function edit()
-    {
+    { 
+        $finished_product = $this->inputs['product_id'];
         $form = array(
             $this->name         => $this->clean($this->inputs[$this->name]),
             'product_id'        => $finished_product,
