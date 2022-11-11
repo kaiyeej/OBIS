@@ -84,7 +84,7 @@
                                 <div class="col-sm-12">
                                     <label><strong>Product</strong></label>
                                     <div>
-                                        <select class="form-control form-control-sm select2" name="input[product_id]" id="product_id" required></select>
+                                        <select class="form-control form-control-sm select2" onchange="getProductCost()" name="input[product_id]" id="product_id" required></select>
                                     </div>
                                 </div><br>
                                 <div class="col">
@@ -96,7 +96,7 @@
                                 <div class="col">
                                     <label><strong>Cost</strong></label>
                                     <div>
-                                        <input type="number" step="0.01" class="form-control form-control-sm input-item" autocomplete="off" name="input[cost]" id="cost" required>
+                                        <input type="number" step="0.01" class="form-control form-control-sm input-item" autocomplete="off" name="input[cost]" id="cost" readonly required>
                                     </div>
                                 </div>
                             </div>

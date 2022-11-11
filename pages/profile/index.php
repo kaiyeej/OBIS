@@ -21,7 +21,6 @@
                 <div class="col-md-3 mt-3" style="margin-left: 10px;">
                     <div class="card">
                         <div class="card-content">
-                            <img src="assets/images/samples/motorcycle.jpg" class="card-img-top img-fluid" alt="singleminded" />
                             <div class="card-body">
                                 <h5 class="card-title"><?= $_SESSION["user_fullname"] ?></h5>
                                 <p class="card-text">

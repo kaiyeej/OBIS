@@ -93,6 +93,14 @@ class Products extends Connection
         $row = $fetch->fetch_assoc();
         return $row['product_price'];
     }
+    
+    public function getCost()
+    {
+        $primary_id = $_POST['id'];
+        $fetch = $this->select($this->table, "product_cost", "$this->pk = '$primary_id'");
+        $row = $fetch->fetch_assoc();
+        return $row['product_cost'];
+    }
 
     public function productCost($primary_id)
     {
@@ -116,4 +124,5 @@ class Products extends Connection
         );
         return $this->update($this->table, $form, "product_id='$id'");
     }
+
 }

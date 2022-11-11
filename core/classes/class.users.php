@@ -19,7 +19,7 @@ class Users extends Connection
                 'user_category' => $this->inputs['user_category'],
                 'date_added' => $this->getCurrentDate(),
                 'username' => $this->inputs['username'],
-                'password' => md5('$pass')
+                'password' => md5($pass)
             );
             return $this->insert($this->table, $form);
         }
@@ -74,5 +74,25 @@ class Users extends Connection
         $result = $self->select($self->table, $self->name, "$self->pk  = '$primary_id'");
         $row = $result->fetch_assoc();
         return $row[$self->name];
+    }
+
+    public function loginCashier()
+    {
+        $response = [];
+        $username = $this->clean($this->inputs['username']);
+        $password = md5($this->clean($this->inputs['password']));
+        $result = $this->select($this->table, '*', "username = '$username' AND password = '$password' AND user_category='C'");
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+
+            $response['login'] = 'Yes';
+            $response['user_id'] = $row['user_id'];
+            $response['user_fullname'] = $row['user_fullname'];
+            //$_SESSION['user']['id'] = $row['user_id'];
+        } else {
+            $response['login'] = 'No';
+            $response['user_id'] = "";
+        }
+        return $response;
     }
 }

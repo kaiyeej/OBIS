@@ -170,7 +170,7 @@
                 },
                 {
                     "mRender": function(data, type, row) {
-                        return row.status == 'F' ? "<span class='badge badge-success'>Finish</span>" : "<span class='badge badge-danger'>Saved</span>";
+                        return row.status == 'F' ? "<strong style='color:green;'>Finished</strong>" : "<strong style='color:orange;'>Saved</strong>";
                     }
                 },
                 {
@@ -220,17 +220,14 @@
     function getProductCost() {
         var id = $("#product_id").val();
         $.ajax({
-            type: "POST",
-            url: "controllers/sql.php?c=" + route_settings.class_name + "&q=view",
+            type: 'POST',
+            url: "controllers/sql.php?c=Products&q=getCost",
             data: {
-                input: {
-                    id: id
-                }
+                id: id
             },
             success: function(data) {
-                var jsonParse = JSON.parse(data);
-                const json = jsonParse.data;
-                $("#cost").val(json.cost);
+                var json = JSON.parse(data);
+                $("#cost").val(json.data);
             }
         });
     }

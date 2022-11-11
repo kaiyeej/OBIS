@@ -19,5 +19,8 @@ $classes = array(
     'SalesReport'       => $pre_class . 'salesreport.php',
     'Users'             => $pre_class . 'users.php',
     'Queuing'           => $pre_class . 'queuing.php',    
-    'Profile'           => $pre_class . 'profile.php',
+    'Profile'           => $pre_class . 'profile.php',   
+    'CustomerPayment'   => $pre_class . 'customerpayment.php',
+    'SalesSummary'      => $pre_class . 'salessummary.php',
+    'PaymentOption'     => $pre_class . 'paymentoption.php',
 );
