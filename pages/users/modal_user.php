@@ -22,7 +22,7 @@
                             <select class="form-control input-item select2" name="input[user_category]" id="user_category" required>
                                 <option value="">&mdash; Please Select &mdash;</option>
                                 <option value="A">Admin</option>
-                                <option value="S">Staff</option>
+                                <option value="C">Cashier</option>
                             </select>
                             </div>
                         </div>

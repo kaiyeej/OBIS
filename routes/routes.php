@@ -64,8 +64,13 @@ $routes = array(
     "queuing" => array(
         'class_name' => 'Queuing',
         'has_detail' => 0
-    ),"profile" => array(
+    ),
+    "profile" => array(
         'class_name' => 'Profile',
+        'has_detail' => 0
+    ),
+    "stock-card" => array(
+        'class_name' => 'StockCard',
         'has_detail' => 0
     ),
     

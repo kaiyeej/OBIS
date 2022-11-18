@@ -174,6 +174,11 @@ class JobOrder extends Connection
             
         $this->update('tbl_products', $form_, "product_id='$finished_product'");
 
+        $form_2 = array(
+            'cost' => $new_cost,
+        );
+        $this->update('tbl_product_transactions', $form_2, "header_id = '$primary_id' AND detail_id='0' AND module='JO'");
+
         $form = array(
             'status' => 'F',
         );

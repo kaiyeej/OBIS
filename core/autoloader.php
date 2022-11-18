@@ -23,4 +23,5 @@ $classes = array(
     'CustomerPayment'   => $pre_class . 'customerpayment.php',
     'SalesSummary'      => $pre_class . 'salessummary.php',
     'PaymentOption'     => $pre_class . 'paymentoption.php',
+    'StockCard'         => $pre_class . 'stockcard.php',
 );

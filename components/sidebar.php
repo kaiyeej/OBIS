@@ -108,13 +108,20 @@ $page = str_replace("/obis/", "", $request);
             </a>
         </li>
 
-        <li class="sidebar-item <?= $page == 'sales-order' ? 'active' : '' ?>">
+        <li class="sidebar-item <?= $page == 'sales-report' ? 'active' : '' ?>">
             <a href="./sales-report" class='sidebar-link'>
                 <i class="bi bi-bar-chart-line-fill"></i>
                 <span>Sales Report</span>
             </a>
         </li>
 
+        <li class="sidebar-item <?= $page == 'stock-card' ? 'active' : '' ?>">
+            <a href="./stock-card" class='sidebar-link'>
+                <i class="bi bi-list"></i>
+                <span>Stock Card</span>
+            </a>
+        </li>
+        
 
         <li class="sidebar-title">Security</li>
 

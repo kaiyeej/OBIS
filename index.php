@@ -247,6 +247,10 @@ if (!isset($_SESSION["status"])) {
       swal("Success!", "Successfully added entry!", "success");
     }
 
+    function success_finish() {
+      swal("Success!", "Successfully finished entry!", "success");
+    }
+
     function success_update() {
       swal("Success!", "Successfully updated entry!", "success");
     }
@@ -674,7 +678,7 @@ if (!isset($_SESSION["status"])) {
                   getEntries();
                   var json = JSON.parse(data);
                   if (json.data == 1) {
-                    success_add();
+                    success_finish();
                     $("#modalEntry2").modal('hide');
 
                     if(route_settings.class_name == "Sales"){
